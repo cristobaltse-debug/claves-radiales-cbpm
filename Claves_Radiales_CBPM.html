@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0F1118">
+<meta name="apple-mobile-web-app-title" content="Claves CBPM">
+<title>Claves Radiales — CB Puerto Montt</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  html, body { height: 100%; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Segoe UI', sans-serif;
+    background: #0F1118; color: #fff; max-width: 520px; margin: 0 auto;
+    -webkit-font-smoothing: antialiased; overflow-x: hidden;
+    padding-bottom: env(safe-area-inset-bottom, 20px);
+  }
+  .hdr {
+    position: -webkit-sticky; position: sticky; top: 0; z-index: 100;
+    padding: 14px 16px 10px; padding-top: calc(14px + env(safe-area-inset-top, 0px));
+    background: #0F1118;
+  }
+  .hdr-row { display: -webkit-flex; display: flex; -webkit-align-items: center; align-items: center; margin-bottom: 10px; }
+  .hdr-ico {
+    width: 32px; height: 32px; border-radius: 7px; background: #E63946;
+    display: -webkit-flex; display: flex; -webkit-align-items: center; align-items: center;
+    -webkit-justify-content: center; justify-content: center; font-size: 17px;
+    margin-right: 10px; -webkit-flex-shrink: 0; flex-shrink: 0;
+  }
+  .hdr h1 { font-size: 16px; font-weight: 800; line-height: 1.2; }
+  .hdr .sub { font-size: 10px; color: rgba(255,255,255,0.4); font-weight: 600; letter-spacing: 0.8px; text-transform: uppercase; }
+  .srch { position: relative; }
+  .srch-ico { position: absolute; left: 11px; top: 50%; -webkit-transform: translateY(-50%); transform: translateY(-50%); font-size: 14px; opacity: 0.4; pointer-events: none; }
+  .srch input {
+    width: 100%; padding: 10px 38px 10px 34px; border-radius: 10px;
+    border: 1.5px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.06);
+    color: #fff; font-size: 16px; font-family: inherit; outline: none;
+    -webkit-appearance: none; appearance: none;
+  }
+  .srch input::-webkit-input-placeholder { color: rgba(255,255,255,0.3); }
+  .srch input::placeholder { color: rgba(255,255,255,0.3); }
+  .srch input:focus { border-color: rgba(230,57,70,0.5); }
+  .srch-x {
+    position: absolute; right: 8px; top: 50%; -webkit-transform: translateY(-50%); transform: translateY(-50%);
+    background: rgba(255,255,255,0.15); border: none; border-radius: 50%;
+    color: #fff; width: 22px; height: 22px; font-size: 12px; cursor: pointer;
+    display: none; -webkit-align-items: center; align-items: center;
+    -webkit-justify-content: center; justify-content: center;
+  }
+  .srch-x.vis { display: -webkit-flex; display: flex; }
+
+  .chips {
+    display: -webkit-flex; display: flex; overflow-x: auto; -webkit-overflow-scrolling: touch;
+    padding: 4px 16px 10px; scrollbar-width: none;
+  }
+  .chips::-webkit-scrollbar { display: none; }
+  .chp {
+    display: -webkit-inline-flex; display: inline-flex; -webkit-align-items: center; align-items: center;
+    padding: 6px 11px; border-radius: 16px; border: 2px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.03); font-size: 12px; font-weight: 500; font-family: inherit;
+    cursor: pointer; white-space: nowrap; -webkit-flex-shrink: 0; flex-shrink: 0;
+    color: rgba(255,255,255,0.5); margin-right: 6px;
+  }
+  .chp:last-child { margin-right: 0; }
+  .chp.on { font-weight: 700; }
+  .chp-i { font-size: 13px; margin-right: 4px; }
+
+  .cnt { padding: 0 16px 90px; }
+  .crd {
+    display: -webkit-flex; display: flex; -webkit-align-items: flex-start; align-items: flex-start;
+    padding: 9px 11px; border-radius: 9px; background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.06); margin-bottom: 4px;
+  }
+  .crd.s { margin-left: 12px; }
+  .crd.hl { background: rgba(255,255,255,0.09); }
+  .bdg {
+    font-family: 'SF Mono', 'Menlo', 'Courier New', monospace;
+    font-size: 13px; font-weight: 700; padding: 2px 7px; border-radius: 5px;
+    white-space: nowrap; min-width: 40px; text-align: center;
+    -webkit-flex-shrink: 0; flex-shrink: 0; margin-right: 9px;
+  }
+  .dsc { font-size: 13px; color: rgba(255,255,255,0.8); line-height: 1.4; -webkit-flex: 1; flex: 1; min-width: 0; }
+  .sec { margin-bottom: 18px; }
+  .sec-h {
+    display: -webkit-flex; display: flex; -webkit-align-items: center; align-items: center;
+    margin-bottom: 7px; background: none; border: none; cursor: pointer; padding: 0; width: 100%; text-align: left;
+  }
+  .sec-h .si { font-size: 16px; margin-right: 6px; }
+  .sec-h h2 { font-size: 14px; font-weight: 700; margin: 0; }
+  .sec-h .ct { font-size: 9px; padding: 2px 5px; border-radius: 7px; font-weight: 700; margin-left: 6px; }
+  .sec-h .ar { color: rgba(255,255,255,0.2); font-size: 11px; margin-left: auto; }
+  .more {
+    padding: 6px; border-radius: 7px; background: transparent; font-size: 11px; font-weight: 600;
+    cursor: pointer; font-family: inherit; width: 100%; border-width: 1px; border-style: dashed;
+  }
+  .qbtn {
+    width: 100%; padding: 10px 12px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.03); color: rgba(255,255,255,0.6); font-size: 13px; font-weight: 600;
+    font-family: inherit; cursor: pointer; display: -webkit-flex; display: flex;
+    -webkit-align-items: center; align-items: center; -webkit-justify-content: space-between;
+    justify-content: space-between; margin-bottom: 12px; text-align: left;
+  }
+  .qbtn.op { background: rgba(148,163,184,0.08); }
+  .qa { font-size: 10px; display: inline-block; -webkit-transition: -webkit-transform 0.2s; transition: transform 0.2s; }
+  .qbtn.op .qa { -webkit-transform: rotate(180deg); transform: rotate(180deg); }
+  .ach { display: -webkit-flex; display: flex; -webkit-align-items: center; align-items: center; margin-bottom: 10px; }
+  .ach .ai { font-size: 20px; margin-right: 7px; }
+  .ach h2 { font-size: 16px; font-weight: 800; }
+  .ach .ab { font-size: 10px; padding: 2px 7px; border-radius: 8px; font-weight: 700; margin-left: 7px; }
+  .rl { font-size: 11px; color: rgba(255,255,255,0.4); margin-bottom: 8px; font-weight: 600; }
+  .rg { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 5px; display: -webkit-flex; display: flex; -webkit-align-items: center; align-items: center; }
+  .rg span { margin-right: 4px; }
+  .emp { text-align: center; padding: 36px 20px; color: rgba(255,255,255,0.25); }
+  .emp .big { font-size: 36px; margin-bottom: 8px; }
+  .bbar {
+    position: fixed; bottom: 0; left: 50%; -webkit-transform: translateX(-50%); transform: translateX(-50%);
+    max-width: 520px; width: 100%; padding: 8px 16px;
+    padding-bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+    background: #0F1118; text-align: center; z-index: 100;
+  }
+  .bbtn {
+    padding: 9px 22px; border-radius: 18px; border: none; background: rgba(255,255,255,0.1);
+    color: #fff; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit;
+    -webkit-appearance: none; appearance: none;
+  }
+  .ibanner {
+    display: none; padding: 10px 14px; margin: 0 16px 10px; border-radius: 10px;
+    background: rgba(230,57,70,0.1); border: 1px solid rgba(230,57,70,0.2);
+    font-size: 12px; color: rgba(255,255,255,0.75); line-height: 1.4;
+    -webkit-align-items: center; align-items: center;
+  }
+  .ibanner.vis { display: -webkit-flex; display: flex; }
+  .ibanner .itxt { -webkit-flex: 1; flex: 1; }
+  .ibanner strong { color: #E63946; }
+  .ibanner .ix { background: none; border: none; color: rgba(255,255,255,0.35); font-size: 16px; cursor: pointer; padding: 2px 6px; margin-left: 6px; }
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="hdr-row">
+    <div class="hdr-ico">🚒</div>
+    <div>
+      <h1>Claves Radiales</h1>
+      <div class="sub">CB Puerto Montt · POE-C01</div>
+    </div>
+  </div>
+  <div class="srch">
+    <span class="srch-ico">🔍</span>
+    <input id="si" type="search" placeholder="Buscar clave o descripción..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+    <button class="srch-x" id="sx">✕</button>
+  </div>
+</div>
+
+<div class="ibanner" id="ib">
+  <div class="itxt" id="it"></div>
+  <button class="ix" id="ic">✕</button>
+</div>
+
+<div class="chips" id="cr"></div>
+<div class="cnt" id="ct"></div>
+<div class="bbar" id="bb" style="display:none"><button class="bbtn" id="bk">← Todas las categorías</button></div>
+
+<script>
+(function(){
+  // ===== DATA =====
+  var cats = [
+    {id:"general",lb:"General",ic:"📻",cl:"#E63946",ds:[
+      ["0-0","Silenciar transmisiones radiales hasta nueva orden"],["0-1","Dé y/o amplíe el Preinforme"],["0-2","Se consulta y se informa..."],["0-3","Repita en forma lenta y pausada"],["0-4","Indica de qué se trata..."],["0-5","Indique su ubicación"],["0-6","Diríjase al lugar con alarmas"],["0-7","Llegue al lugar sin alarmas"],["0-8","Fuera de servicio"],["0-9","En servicio"],["0-10","Regrese a su Cuartel"],["0-11","Guardia preventiva"],["0-12","Transmita por el equipo radial del Material Mayor"]]},
+    {id:"solicitudes",lb:"Solicitudes",ic:"🚨",cl:"#457B9D",ds:[
+      ["1-0","Se solicita Carabineros"],["1-1","Se solicita Apoyo aéreo"],["1-2","Se solicita Ambulancia"],["1-3","Se solicita Personal de la Municipalidad"],["1-4","Se solicita Empresa que se indica..."],["1-5","Se solicita CONAF"],["1-6","Se solicita Comandante de Guardia"],["1-7","Se solicita Capitán de Guardia"],["1-8","Se solicita Depto. Investigación de Incendios"],["1-9","Se solicita Equipo USAR"],["1-10","Se solicita Apoyo bomberil que se indica..."],["1-11","Persona que se comunicó con Central acérquese a la máquina"],["1-12","Indique tiempo estimado de llegada de..."]]},
+    {id:"despacho",lb:"Despacho",ic:"🚒",cl:"#2A9D8F",ds:[
+      ["2-0","Despache al lugar un Carro Bomba"],["2-1","Despache al lugar un Carro Portaescalas"],["2-2","Despache al lugar un Carro de Rescate"],["2-3","Despache al lugar Ambulancia de bomberos"],["2-4","Despache al lugar un Carro Cisterna"],["2-5","Despache al lugar un Carro Haz-Mat"],["2-6","Despache al lugar un Carro... (específico)"],["2-7","Despache al lugar una Mecánica Telescópica"],["2-8","Despache al lugar un Carro de Transporte"],["2-9","Despache al lugar un Brazo Articulado / Snorkel"],["2-10","Despache Material Mayor con Motobomba"],["2-11","Despache Material Mayor con Grupo Electrógeno"],["2-12","Despache Material Mayor con Cascada de Aire Comprimido"],["2-13","Despache al lugar un Carro de Rescate Pesado"],["2-14","Despache al lugar un Carro Bomba Forestal"]]},
+    {id:"comunicacion",lb:"Comunicación",ic:"📞",cl:"#E9C46A",ds:[
+      ["3-0","Comunicarse con la Central de Alarmas"],["3-1","Comunicarse al Cuartel General"],["3-2","Comunicarse con su Compañía"],["3-3","Comunicarse con su domicilio"],["3-4","Comunicarse con su trabajo"],["3-5","Comunicarse con el número..."],["3-6","Desocupe el teléfono del Cuartel"],["3-7","Se solicita comunicación telefónica al celular"],["33","Se solicita comunicación Urgente"]]},
+    {id:"frecuencias",lb:"Frecuencias",ic:"📡",cl:"#8338EC",ds:[
+      ["5-0","Frecuencia Nacional de Bomberos"],["5-1","Frec. 1 con repetidor (Despacho)"],["5-2","Frec. 2 con repetidor (Tráfico Normal)"],["5-3","Frec. 3 con repetidor (Oficiales Generales)"],["5-4","Frec. 4 con repetidor (Alerce)"],["5-5","Frecuencia 1 sin repetidor"],["5-6","Frecuencia 2 sin repetidor"],["5-7","Frecuencia 3 sin repetidor"],["5-8","Frecuencia 4 sin repetidor"],["5-9","Frecuencia Interna de Compañía"]]},
+    {id:"operacion",lb:"Operación",ic:"⚙️",cl:"#F77F00",ds:[
+      ["6-0","Dar Conforme: quién va a cargo, n° bomberos, personal especializado"],["6-1","Material Mayor se dirige sin personal (solo conductor)"],["6-2","Indique la dirección exacta"],["6-3","Material Mayor en el lugar"],["6-4","Se solicita instrucciones"],["6-5","Indique ubicación de grifos próximos"],["6-6","Se solicita más personal al lugar"],["6-7","Situación controlada"],["6-8","Material Mayor se encuentra disponible"],["6-9","Material Mayor se retira"],["6-10","Material Mayor en su Cuartel"],["6-11","Material Mayor en panne"],["6-12","Material Mayor sufrió colisión"],["6-13","Material Mayor se dirige a..."],["6-14","Material Mayor a cargar combustible"],["6-15","Material Mayor a recuperar material en Centro Asistencial"],["6-16","Falsa Alarma"],["6-17","Mantención en Cuartel"]]},
+    {id:"mando",lb:"Mando",ic:"🎖️",cl:"#D62828",ds:[
+      ["7-0","Establece puesto de mando, ubicación, indica OBAC"],["7-1","Indique horas de llamado, alarma y material concurrente"],["7-2","Indique bombero a cargo, ubicación, labor, armado a grifo"],["7-3","Cadáver en el lugar"],["7-4","Artefacto explosivo o incendiario"],["7-5","Se sufre agresión"],["7-6","Solicite apoyo logístico"],["7-7","Autorización para informar a la prensa"],["7-8","Detenga trabajo y evacúe estructura siniestrada de inmediato"],["7-9","Proceda a evacuar a los moradores del inmueble"]]},
+    {id:"comandancia",lb:"Comandancia",ic:"🏛️",cl:"#264653",ds:[
+      ["8-0","Comandante o Capitán se encuentra disponible"],["8-1","Comandante o Capitán no se encuentra disponible"],["8-2","Envíe K a Cuartel de... Compañía"],["8-3","Envíe K a mi domicilio"],["8-4","Envíe K a mi oficina"],["8-5","Envíe K a la dirección que se indica..."],["8-6","Me dirijo al lugar por mis propios medios"],["8-7","Concurrir todos los Comandantes"]]},
+    {id:"guardia",lb:"Guardia",ic:"🛡️",cl:"#606C38",ds:[
+      ["9-0","Guardia preventiva grado..."],["9-0 G1","Guardia de X bomberos por Compañías"],["9-0 G2","Guardia Nocturna desde las... Hrs"],["9-0 G3","Acuartelamiento General Inmediato"]]},
+    {id:"servicios",lb:"Tipo Servicio",ic:"🔥",cl:"#BC4749",ds:[
+      ["10-0","Llamado Estructural"],["10-0-1","Inflamación Ducto Evacuación de Gases"],["10-0-2","Llamado Estructural (casa, local comercial)"],["10-0-3","Estructural en Altura (sobre 3 pisos)"],["10-0-4","Estructural Industrial"],["10-0-5","Estructura Menor"],["10-0-6","Embarcación"],["10-1","Llamado de Vehículos"],["10-1-1","Incendio Vehículo Menor"],["10-1-2","Incendio Vehículo con Pasajeros"],["10-1-3","Incendio Vehículo Transporte de Carga"],["10-2","Llamado Pastizales y/o Basurero"],["10-2-1","Fuego en basurero"],["10-2-2","Fuego en vegetación"],["10-3","Rescate de Emergencia"],["10-3-1","Rescate Persona Encerrada"],["10-3-2","Rescate de Persona"],["10-3-3","Rescate Persona en Alturas o Desnivel"],["10-3-4","Rescate Persona en Aguas"],["10-3-5","Rescate Persona Estructura Colapsada"],["10-3-6","Rescate Persona Espacios Confinados"],["10-4","Rescate Vehicular"],["10-4-1","Rescate Vehicular Liviano"],["10-4-2","Rescate Vehicular Pesado / muchas víctimas"],["10-4-3","Rescate Vehicular Camión Mat. Peligrosos"],["10-4-4","Rescate Vehicular Desnivel / Agua / Quebrada"],["10-5","Llamado Haz-Mat"],["10-5-1","Derrame de Hidrocarburo"],["10-5-2","Incidente con Materiales Peligrosos"],["10-6","Emanación de Gases"],["10-6-1","Verificar Olor a Combustible"],["10-6-2","Verificar Fuga/Olor Gas Licuado o Natural"],["10-6-3","Explosión de Gas"],["10-6-4","Explosión de Gas con fuego"],["10-7","Llamado Eléctrico"],["10-8","Llamado No Clasificado"],["10-9","Llamado a Otros Servicios"],["10-10","Incendio declarado (1ª Alarma)"],["10-11","Accidente Aéreo"],["10-12","Apoyo a otros Cuerpos de Bomberos"],["10-13","Bomba, Atentados Terroristas, etc."],["10-14","Simulacro"],["10-61","Anular clave anterior"]]},
+    {id:"radio",lb:"Radio / Varios",ic:"🔧",cl:"#6D6875",ds:[
+      ["11-0","Indique cómo recibe"],["11-1","Fuerte y claro"],["11-2","Se recibe con interferencias"],["11-3","Central solo por frecuencia principal"],["11-4","Indique operador en servicio"],["11-5","Central en transmisión de pruebas"],["11-6","Central transmisión abierta accidentalmente"],["12-1","Asigna cuartel de reemplazo"],["12-2","Retira cuartel de reemplazo"],["12-3","Diríjase al lugar con máxima precaución"],["12-4","Toque sirena del Cuartel"],["12-5","Active inversor de voz"],["12-6","Material Mayor suficiente en el lugar"],["12-7","No armar"],["12-8","Capitán... asume el mando del Cuerpo"],["12-9","Citación a... Compañía"],["12-10","Solicita conductor para..."]]}
+  ];
+  var cuart = [["R-10","1ª Compañía"],["R-20","2ª Compañía"],["R-30","3ª Compañía"],["R-40","4ª Compañía"],["R-50","5ª Compañía"],["R-60","6ª Compañía"],["R-70","7ª Compañía"],["R-80","8ª Compañía"],["R-90","9ª Compañía"]];
+
+  var activeCat = null;
+  var showQ = false;
+
+  // DOM refs
+  var searchInput = document.getElementById("si");
+  var searchClear = document.getElementById("sx");
+  var chipsRow = document.getElementById("cr");
+  var content = document.getElementById("ct");
+  var backBar = document.getElementById("bb");
+  var backBtn = document.getElementById("bk");
+  var installBanner = document.getElementById("ib");
+  var installText = document.getElementById("it");
+  var installClose = document.getElementById("ic");
+
+  function norm(str) {
+    return str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  }
+
+  function isSub(code) {
+    return code.split("-").length > 2 || code.indexOf("G") !== -1;
+  }
+
+  function makeCard(code, desc, color, highlight) {
+    var subClass = isSub(code) ? " s" : "";
+    var hlClass = highlight ? " hl" : "";
+    var borderStyle = highlight ? "border-color:" + color + "44;" : "";
+    return '<div class="crd' + subClass + hlClass + '" style="' + borderStyle + '">' +
+      '<span class="bdg" style="color:' + color + ';background:' + color + '18;">' + code + '</span>' +
+      '<span class="dsc">' + desc + '</span></div>';
+  }
+
+  function render() {
+    var query = norm(searchInput.value.trim());
+    var isSearching = query.length > 0;
+
+    // Clear button visibility
+    searchClear.className = isSearching ? "srch-x vis" : "srch-x";
+
+    // Back bar
+    backBar.style.display = (!isSearching && activeCat) ? "" : "none";
+
+    // Chips
+    if (isSearching) {
+      chipsRow.style.display = "none";
+    } else {
+      chipsRow.style.display = "-webkit-flex";
+      chipsRow.style.display = "flex";
+      var chipsHTML = "";
+      for (var ci = 0; ci < cats.length; ci++) {
+        var cat = cats[ci];
+        var isActive = activeCat === cat.id;
+        var chipColor = isActive ? cat.cl : "rgba(255,255,255,0.5)";
+        var chipBorder = isActive ? cat.cl : "rgba(255,255,255,0.08)";
+        var chipBg = isActive ? cat.cl + "22" : "rgba(255,255,255,0.03)";
+        var chipOn = isActive ? " on" : "";
+        chipsHTML += '<button class="chp' + chipOn + '" style="color:' + chipColor + ';border-color:' + chipBorder + ';background:' + chipBg + ';" data-id="' + cat.id + '">';
+        chipsHTML += '<span class="chp-i">' + cat.ic + '</span>' + cat.lb + '</button>';
+      }
+      chipsRow.innerHTML = chipsHTML;
+    }
+
+    var html = "";
+
+    // ===== SEARCH MODE =====
+    if (isSearching) {
+      var results = [];
+      for (var si = 0; si < cats.length; si++) {
+        var sCat = cats[si];
+        for (var sj = 0; sj < sCat.ds.length; sj++) {
+          var sItem = sCat.ds[sj];
+          if (norm(sItem[0]).indexOf(query) !== -1 || norm(sItem[1]).indexOf(query) !== -1) {
+            results.push({ code: sItem[0], desc: sItem[1], color: sCat.cl, label: sCat.lb, icon: sCat.ic });
+          }
+        }
+      }
+      for (var sk = 0; sk < cuart.length; sk++) {
+        var qItem = cuart[sk];
+        if (norm(qItem[0]).indexOf(query) !== -1 || norm(qItem[1]).indexOf(query) !== -1) {
+          results.push({ code: qItem[0], desc: qItem[1], color: "#94A3B8", label: "Cuarteles", icon: "🏠" });
+        }
+      }
+
+      html += '<div class="rl">' + results.length + " resultado" + (results.length !== 1 ? "s" : "") + "</div>";
+      if (results.length === 0) {
+        html += '<div class="emp"><div class="big">📻</div><p style="font-size:13px">No se encontraron claves</p><p style="font-size:11px;margin-top:4px;color:rgba(255,255,255,0.2)">Intenta con otro término</p></div>';
+      } else {
+        var lastLabel = "";
+        for (var ri = 0; ri < results.length; ri++) {
+          var rItem = results[ri];
+          if (rItem.label !== lastLabel) {
+            html += '<div class="rg" style="color:' + rItem.color + ';margin-top:' + (lastLabel ? "12px" : "0") + ';"><span>' + rItem.icon + '</span> ' + rItem.label + '</div>';
+            lastLabel = rItem.label;
+          }
+          html += makeCard(rItem.code, rItem.desc, rItem.color, true);
+        }
+      }
+      content.innerHTML = html;
+      return;
+    }
+
+    // ===== ACTIVE CATEGORY =====
+    if (activeCat) {
+      var aCat = null;
+      for (var ai = 0; ai < cats.length; ai++) {
+        if (cats[ai].id === activeCat) { aCat = cats[ai]; break; }
+      }
+      if (!aCat) return;
+      html += '<div class="ach"><span class="ai">' + aCat.ic + '</span><h2 style="color:' + aCat.cl + '">' + aCat.lb + '</h2>';
+      html += '<span class="ab" style="background:' + aCat.cl + '22;color:' + aCat.cl + '">' + aCat.ds.length + '</span></div>';
+      for (var aj = 0; aj < aCat.ds.length; aj++) {
+        html += makeCard(aCat.ds[aj][0], aCat.ds[aj][1], aCat.cl, false);
+      }
+      content.innerHTML = html;
+      return;
+    }
+
+    // ===== HOME =====
+    html += '<button class="qbtn' + (showQ ? " op" : "") + '" id="qb"><span>🏠 Cuarteles de Compañías</span><span class="qa">▼</span></button>';
+    if (showQ) {
+      html += '<div style="margin-bottom:14px">';
+      for (var qi = 0; qi < cuart.length; qi++) {
+        html += makeCard(cuart[qi][0], "Cuartel " + cuart[qi][1], "#94A3B8", false);
+      }
+      html += '</div>';
+    }
+
+    for (var hi = 0; hi < cats.length; hi++) {
+      var hCat = cats[hi];
+      html += '<div class="sec"><button class="sec-h" data-id="' + hCat.id + '">';
+      html += '<span class="si">' + hCat.ic + '</span><h2 style="color:' + hCat.cl + '">' + hCat.lb + '</h2>';
+      html += '<span class="ct" style="background:' + hCat.cl + '18;color:' + hCat.cl + '">' + hCat.ds.length + '</span>';
+      html += '<span class="ar">Ver todo →</span></button>';
+      var limit = Math.min(3, hCat.ds.length);
+      for (var hj = 0; hj < limit; hj++) {
+        html += makeCard(hCat.ds[hj][0], hCat.ds[hj][1], hCat.cl, false);
+      }
+      if (hCat.ds.length > 3) {
+        html += '<button class="more" style="border-color:' + hCat.cl + '33;color:' + hCat.cl + ';" data-id="' + hCat.id + '">+ ' + (hCat.ds.length - 3) + ' claves más</button>';
+      }
+      html += '</div>';
+    }
+
+    content.innerHTML = html;
+  }
+
+  // ===== EVENT DELEGATION =====
+  chipsRow.addEventListener("click", function(e) {
+    var btn = e.target.closest(".chp");
+    if (!btn) return;
+    var id = btn.getAttribute("data-id");
+    activeCat = (activeCat === id) ? null : id;
+    render();
+    window.scrollTo(0, 0);
+  });
+
+  content.addEventListener("click", function(e) {
+    var secBtn = e.target.closest(".sec-h");
+    var moreBtn = e.target.closest(".more");
+    var qBtn = e.target.closest("#qb");
+
+    if (secBtn) {
+      activeCat = secBtn.getAttribute("data-id");
+      render();
+      window.scrollTo(0, 0);
+    } else if (moreBtn) {
+      activeCat = moreBtn.getAttribute("data-id");
+      render();
+      window.scrollTo(0, 0);
+    } else if (qBtn) {
+      showQ = !showQ;
+      render();
+    }
+  });
+
+  backBtn.addEventListener("click", function() {
+    activeCat = null;
+    render();
+    window.scrollTo(0, 0);
+  });
+
+  searchInput.addEventListener("input", function() {
+    activeCat = null;
+    render();
+  });
+
+  searchClear.addEventListener("click", function() {
+    searchInput.value = "";
+    searchInput.focus();
+    render();
+  });
+
+  // ===== INSTALL BANNER (iOS) =====
+  var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+  var isStandalone = (window.navigator.standalone === true);
+  if (isIOS && !isStandalone) {
+    installText.innerHTML = '<strong>Instalar como App:</strong> Toca <strong>Compartir</strong> (↑) y luego <strong>"Agregar a Inicio"</strong>';
+    installBanner.className = "ibanner vis";
+  }
+  installClose.addEventListener("click", function() {
+    installBanner.className = "ibanner";
+  });
+
+  // ===== INIT =====
+  render();
+
+})();
+</script>
+</body>
+</html>
