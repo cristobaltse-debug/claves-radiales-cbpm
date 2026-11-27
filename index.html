@@ -8,7 +8,7 @@
 <meta name="theme-color" content="#0A1472">
 <meta name="color-scheme" content="light dark">
 <meta name="apple-mobile-web-app-title" content="Claves CBPM">
-<meta name="description" content="Cartilla de claves radiales del Cuerpo de Bomberos de Puerto Montt.">
+<meta name="description" content="Cartilla de claves radiales del Cuerpo de Bomberos de Puerto Montt según el POE-C01.">
 <title>Claves Radiales · CB Puerto Montt</title>
 <link rel="icon" type="image/png" href="img/favicon.png">
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
@@ -16,7 +16,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600&display=swap">
 <script>
-  // Aplica el tema guardado antes de pintar, para evitar parpadeo
   (function(){
     try {
       var t = localStorage.getItem("cbpm-theme");
@@ -24,119 +23,9 @@
     } catch (e) {}
   })();
 </script>
+<link rel="stylesheet" href="css/base.css">
 <style>
-  /* Cartilla institucional: banda azul del escudo con franja roja, hoja blanca,
-     claves en letra condensada como la rotulación de los carros. En pantallas
-     anchas, índice de series a la izquierda y cartilla a la derecha. */
-  :root {
-    --bg: #ECEEF4;
-    --sheet: #FFFFFF;
-    --ink: #0B1238;
-    --ink-2: #394066;
-    --ink-3: #5C6286;
-    --rule: #DCDFE8;
-    --rule-2: #B9BED0;
-    --hover: #F3F5FA;
-    --code: #0A1472;
-    --head: #0A1472;
-    --head-2: #071054;
-    --red: #D3141C;
-    --gold: #E8B20C;
-    --mark: #FFE27A;
-    --toast-bg: #0B1238;
-    --toast-fg: #FFFFFF;
-    --display: "Barlow Condensed", "Roboto Condensed", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
-    --text: "Barlow", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-    --ico-sun: none;
-    --ico-moon: block;
-    color-scheme: light;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --bg: #060A22;
-      --sheet: #0C1333;
-      --ink: #EEF0F8;
-      --ink-2: #C4C8DE;
-      --ink-3: #959CBD;
-      --rule: #1E2753;
-      --rule-2: #36407A;
-      --hover: #111A42;
-      --code: #B7C4FF;
-      --head: #0A1160;
-      --head-2: #070C44;
-      --red: #FF4B50;
-      --gold: #F2C230;
-      --mark: rgba(242,194,48,0.40);
-      --toast-bg: #EEF0F8;
-      --toast-fg: #0B1238;
-      --ico-sun: block;
-      --ico-moon: none;
-      color-scheme: dark;
-    }
-  }
-  :root[data-theme="dark"] {
-    --bg: #060A22;
-    --sheet: #0C1333;
-    --ink: #EEF0F8;
-    --ink-2: #C4C8DE;
-    --ink-3: #959CBD;
-    --rule: #1E2753;
-    --rule-2: #36407A;
-    --hover: #111A42;
-    --code: #B7C4FF;
-    --head: #0A1160;
-    --head-2: #070C44;
-    --red: #FF4B50;
-    --gold: #F2C230;
-    --mark: rgba(242,194,48,0.40);
-    --toast-bg: #EEF0F8;
-    --toast-fg: #0B1238;
-    --ico-sun: block;
-    --ico-moon: none;
-    color-scheme: dark;
-  }
-
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-  html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
-  body { font-family: var(--text); background: var(--bg); color: var(--ink); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
-  button { font-family: inherit; color: inherit; }
-  :focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
-  [hidden] { display: none !important; }
-
-  .wrap {
-    width: 100%; max-width: 1120px; margin: 0 auto;
-    padding-left: max(16px, env(safe-area-inset-left, 0px));
-    padding-right: max(16px, env(safe-area-inset-right, 0px));
-  }
-
-  /* ===== CABECERA INSTITUCIONAL ===== */
-  .top {
-    background: var(--head); color: #fff;
-    padding-top: env(safe-area-inset-top, 0px);
-    border-bottom: 6px solid var(--red);
-  }
-  .top .wrap { display: flex; align-items: center; gap: 16px; padding-top: 18px; padding-bottom: 18px; }
-  .logo { width: 68px; height: 68px; flex-shrink: 0; display: block; }
-  .ttl { flex: 1; min-width: 0; }
-  .ttl .org {
-    font-family: var(--display); font-weight: 700; font-size: 13px; letter-spacing: 0.12em;
-    text-transform: uppercase; color: var(--gold); line-height: 1.2;
-  }
-  .ttl h1 {
-    font-family: var(--display); font-weight: 800; text-transform: uppercase;
-    font-size: clamp(32px, 8.4vw, 54px); line-height: 0.95; letter-spacing: 0.01em; margin-top: 4px;
-  }
-  .ttl .ref { font-size: 13px; color: rgba(255,255,255,0.72); margin-top: 6px; font-variant-numeric: tabular-nums; }
-  .tbtn {
-    width: 40px; height: 40px; flex-shrink: 0; align-self: flex-start; cursor: pointer;
-    border: 1.5px solid rgba(255,255,255,0.35); border-radius: 6px; background: transparent; color: #fff;
-    display: flex; align-items: center; justify-content: center;
-  }
-  .tbtn:hover { background: rgba(255,255,255,0.10); }
-  .tbtn .sun { display: var(--ico-sun); }
-  .tbtn .moon { display: var(--ico-moon); }
-
-  /* ===== BARRA FIJA ===== */
+  /* Cartilla: índice de series a la izquierda en pantallas anchas, pestañas en móvil. */
   .bar {
     position: sticky; top: 0; z-index: 50;
     background: var(--sheet); border-bottom: 1px solid var(--rule-2);
@@ -175,7 +64,6 @@
   .tab.on { color: var(--ink); border-bottom-color: var(--red); }
   .bar .pad { height: 10px; }
 
-  /* ===== DISPOSICIÓN ===== */
   .layout { padding-top: 20px; padding-bottom: 48px; }
   .side { display: none; }
   .main { min-width: 0; }
@@ -187,6 +75,13 @@
   }
   .note b { color: var(--ink); }
   .note button { margin-left: auto; flex-shrink: 0; width: 32px; height: 32px; border: none; border-radius: 4px; background: var(--hover); color: var(--ink-2); cursor: pointer; font-size: 15px; }
+  .learn {
+    display: flex; align-items: center; gap: 14px; margin-bottom: 16px; padding: 14px 16px; text-decoration: none;
+    background: var(--gold-soft); border: 1px solid var(--gold); border-radius: 6px; color: var(--ink);
+  }
+  .learn b { font-family: var(--display); font-size: 19px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em; display: block; }
+  .learn span { font-size: 14px; color: var(--ink-2); line-height: 1.4; }
+  .learn i { margin-left: auto; font-style: normal; font-family: var(--display); font-weight: 800; font-size: 22px; color: var(--red); }
 
   .count { font-size: 14px; color: var(--ink-3); margin-bottom: 14px; }
   .count b { color: var(--ink); font-variant-numeric: tabular-nums; }
@@ -204,53 +99,50 @@
     letter-spacing: 0.02em; flex: 1; min-width: 0; text-wrap: balance;
   }
   .sc { font-size: 13px; color: var(--ink-3); white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .sec-note { font-size: 14px; color: var(--ink-3); line-height: 1.45; padding: 10px 6px 4px; }
 
+  .item { border-bottom: 1px solid var(--rule); }
+  .rows .item:last-child { border-bottom: none; }
   .row {
-    display: grid; grid-template-columns: 84px 1fr; gap: 12px; align-items: baseline; width: 100%;
-    padding: 11px 6px; border: none; border-bottom: 1px solid var(--rule); background: none;
-    text-align: left; cursor: pointer;
+    display: grid; grid-template-columns: 84px 1fr 22px; gap: 12px; align-items: baseline; width: 100%;
+    padding: 11px 6px; border: none; background: none; text-align: left; cursor: pointer;
   }
-  .rows .row:last-child { border-bottom: none; }
   .row:hover { background: var(--hover); }
-  .row:active { background: var(--rule); }
   .cd {
     font-family: var(--display); font-weight: 700; font-size: 21px; line-height: 1.1; color: var(--code);
-    font-variant-numeric: tabular-nums; white-space: nowrap;
+    font-variant-numeric: tabular-nums;
   }
   .ds { font-size: 16px; line-height: 1.4; color: var(--ink); min-width: 0; overflow-wrap: anywhere; }
-  .row.par .ds { font-weight: 600; }
-  .row.sub { grid-template-columns: 84px 1fr; padding-left: 22px; }
-  .row.sub .cd { font-size: 18px; font-weight: 600; color: var(--ink-2); }
-  .row.sub .ds { font-size: 15px; color: var(--ink-2); }
-  mark { background: var(--mark); color: inherit; border-radius: 2px; padding: 0 1px; }
+  .ch { font-family: var(--display); font-weight: 800; font-size: 20px; color: var(--red); line-height: 1; text-align: center; }
+  .row[aria-expanded="true"] .ch { transform: rotate(45deg); }
+  .item.par .ds { font-weight: 600; }
+  .item.sub .row { padding-left: 22px; }
+  .item.sub .cd { font-size: 18px; font-weight: 600; color: var(--ink-2); }
+  .item.sub .ds { font-size: 15px; color: var(--ink-2); }
+  .rows.wide .row { grid-template-columns: 116px 1fr 22px; }
+  .rows.wide .cd { font-size: 19px; }
+
+  .det { padding: 2px 6px 14px 102px; }
+  .item.sub .det { padding-left: 118px; }
+  .det p { font-size: 15px; line-height: 1.5; color: var(--ink-2); max-width: 62ch; }
+  .det .cp {
+    margin-top: 10px; padding: 7px 12px; border: 1.5px solid var(--rule-2); border-radius: 4px; background: var(--sheet);
+    font-size: 14px; font-weight: 600; color: var(--ink); cursor: pointer;
+  }
+  .det .cp:hover { border-color: var(--code); }
 
   .rows.grid3 { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr)); column-gap: 18px; }
-  .rows.grid3 .row { border-bottom: 1px solid var(--rule); grid-template-columns: 64px 1fr; }
+  .rows.grid3 .item { border-bottom: 1px solid var(--rule); }
+  .rows.grid3 .row { grid-template-columns: 64px 1fr; }
 
   .empty { padding: 48px 18px; text-align: center; }
   .empty p { font-size: 17px; font-weight: 600; }
   .empty p + p { font-size: 14px; font-weight: 400; color: var(--ink-3); margin-top: 4px; }
 
-  .foot { display: flex; align-items: center; gap: 12px; margin-top: 26px; color: var(--ink-3); font-size: 13px; line-height: 1.45; }
-  .foot img { width: 40px; height: 40px; flex-shrink: 0; }
-  .foot b { color: var(--ink-2); font-weight: 600; }
-
-  .toast {
-    position: fixed; left: 50%; bottom: calc(22px + env(safe-area-inset-bottom, 0px)); z-index: 90;
-    transform: translate(-50%, 16px); opacity: 0; pointer-events: none; max-width: calc(100% - 32px);
-    background: var(--toast-bg); color: var(--toast-fg); padding: 11px 16px; border-radius: 6px;
-    font-size: 15px; font-weight: 500; transition: opacity 0.18s, transform 0.18s;
-  }
-  .toast.on { opacity: 1; transform: translate(-50%, 0); }
-  .toast b { font-family: var(--display); font-weight: 700; font-size: 17px; }
-
-  /* ===== PANTALLAS ANCHAS: índice lateral ===== */
   @media (min-width: 980px) {
-    .top .wrap { padding-top: 26px; padding-bottom: 26px; gap: 20px; }
-    .logo { width: 88px; height: 88px; }
     .tabs { display: none; }
     .layout { display: grid; grid-template-columns: 236px 1fr; gap: 28px; align-items: start; padding-top: 28px; }
-    .side { display: block; position: sticky; top: calc(var(--bar-h, 70px) + 20px); }
+    .side { display: block; position: sticky; top: calc(var(--bar-h, 70px) + 20px); max-height: calc(100vh - var(--bar-h, 70px) - 40px); overflow-y: auto; }
     .side h3 { font-family: var(--display); font-size: 13px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 8px; padding-left: 12px; }
     .side a {
       display: flex; align-items: baseline; gap: 10px; padding: 7px 12px; text-decoration: none; color: var(--ink-2);
@@ -263,24 +155,22 @@
     .side a.on { color: var(--ink); border-left-color: var(--red); background: var(--sheet); font-weight: 600; }
     .side a.dim { opacity: 0.4; }
     .sec { padding: 26px 26px 12px; }
-    .row { grid-template-columns: 96px 1fr; }
-    .row.sub { grid-template-columns: 96px 1fr; }
+    .row { grid-template-columns: 96px 1fr 22px; }
+    .det { padding-left: 114px; }
+    .item.sub .det { padding-left: 130px; }
   }
   @media (max-width: 420px) {
-    .logo { width: 58px; height: 58px; }
-    .top .wrap { gap: 12px; }
-    .ttl .org { font-size: 11.5px; }
-    .row, .row.sub { grid-template-columns: 70px 1fr; gap: 10px; }
-    .row.sub { padding-left: 14px; }
+    .row { grid-template-columns: 70px 1fr 18px; gap: 10px; }
+    .rows.wide .row { grid-template-columns: 100px 1fr 18px; }
+    .item.sub .row { padding-left: 14px; }
+    .det, .item.sub .det { padding-left: 6px; }
     .sec { padding-left: 12px; padding-right: 12px; }
   }
-  @media (prefers-reduced-motion: reduce) { .toast { transition: none; } }
   @media print {
     :root { --bg: #fff; --sheet: #fff; --ink: #000; --ink-2: #222; --ink-3: #444; --rule: #ccc; --code: #0A1472; }
-    .bar, .side, .toast, .note, .tbtn, .count { display: none !important; }
+    .bar, .side, .note, .learn, .count, .ch { display: none !important; }
     .layout { display: block; }
     .sheet { border: none; }
-    .sec { break-inside: auto; }
     .row { break-inside: avoid; }
   }
 </style>
@@ -289,19 +179,25 @@
 
 <header class="top">
   <div class="wrap">
-    <picture>
-      <source srcset="img/logo.webp" type="image/webp">
-      <img class="logo" src="img/logo.png" width="88" height="88" alt="Escudo del Cuerpo de Bomberos de Puerto Montt">
-    </picture>
-    <div class="ttl">
-      <div class="org">Cuerpo de Bomberos de Puerto Montt</div>
-      <h1>Claves Radiales</h1>
-      <div class="ref" id="ref">Cartilla POE-C01</div>
+    <div class="top-row">
+      <picture>
+        <source srcset="img/logo.webp" type="image/webp">
+        <img class="logo" src="img/logo.png" width="88" height="88" alt="Escudo del Cuerpo de Bomberos de Puerto Montt">
+      </picture>
+      <div class="ttl">
+        <div class="org">Cuerpo de Bomberos de Puerto Montt</div>
+        <h1>Claves Radiales</h1>
+        <div class="ref" id="ref">Cartilla POE-C01</div>
+      </div>
+      <button class="tbtn" id="th" type="button" aria-label="Cambiar entre tema claro y oscuro" title="Cambiar tema">
+        <svg class="sun" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="moon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      </button>
     </div>
-    <button class="tbtn" id="th" type="button" aria-label="Cambiar entre tema claro y oscuro" title="Cambiar tema">
-      <svg class="sun" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
-      <svg class="moon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
-    </button>
+    <nav class="pnav" aria-label="Secciones del sitio">
+      <a href="./" aria-current="page">Cartilla</a>
+      <a href="aprende.html">Aprende</a>
+    </nav>
   </div>
 </header>
 
@@ -309,7 +205,7 @@
   <div class="wrap">
     <div class="srch">
       <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
-      <input id="si" type="search" placeholder="Buscar clave o descripción" aria-label="Buscar clave o descripción" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" enterkeyhint="search">
+      <input id="si" type="search" placeholder="Busca una clave o palabra" aria-label="Buscar clave, palabra o sigla" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" enterkeyhint="search">
       <button class="clr" id="sx" type="button" hidden>Borrar</button>
     </div>
     <nav class="tabs" id="tb" aria-label="Series de claves"></nav>
@@ -324,47 +220,28 @@
       <span id="it"></span>
       <button id="ic" type="button" aria-label="Cerrar aviso">✕</button>
     </div>
+    <a class="learn" href="aprende.html" id="lk">
+      <div><b>¿Recién empiezas con la radio?</b><span>Aprende cómo se usan las claves en un despacho, paso a paso.</span></div>
+      <i aria-hidden="true">→</i>
+    </a>
     <div class="count" id="cn" hidden></div>
     <div class="sheet" id="ct"></div>
     <footer class="foot">
       <img src="img/logo.png" alt="" width="40" height="40">
-      <div><b>Cuerpo de Bomberos de Puerto Montt</b><br>Cartilla de claves radiales POE-C01. Toca una clave para copiarla.</div>
+      <div><b>Cuerpo de Bomberos de Puerto Montt</b><br>Fuente oficial: POE-C01, Manual de Comunicaciones del CBPM, versión 1.0 del 25-05-2020. Toca una clave con «+» para ver cómo se usa.</div>
     </footer>
   </main>
 </div>
 
 <div class="toast" id="ts" role="status" aria-live="polite"></div>
 
+<script src="js/claves.js"></script>
+<script src="js/comun.js"></script>
 <script>
 (function(){
-  // ===== DATOS (sin cambios) =====
-  var cats = [
-    {id:"general",lb:"General",ic:"📻",cl:"#E63946",ds:[
-      ["0-0","Silenciar transmisiones radiales hasta nueva orden"],["0-1","Dé y/o amplíe el Preinforme"],["0-2","Se consulta y se informa..."],["0-3","Repita en forma lenta y pausada"],["0-4","Indica de qué se trata..."],["0-5","Indique su ubicación"],["0-6","Diríjase al lugar con alarmas"],["0-7","Llegue al lugar sin alarmas"],["0-8","Fuera de servicio"],["0-9","En servicio"],["0-10","Regrese a su Cuartel"],["0-11","Guardia preventiva"],["0-12","Transmita por el equipo radial del Material Mayor"]]},
-    {id:"solicitudes",lb:"Solicitudes",ic:"🚨",cl:"#457B9D",ds:[
-      ["1-0","Se solicita Carabineros"],["1-1","Se solicita Apoyo aéreo"],["1-2","Se solicita Ambulancia"],["1-3","Se solicita Personal de la Municipalidad"],["1-4","Se solicita Empresa que se indica..."],["1-5","Se solicita CONAF"],["1-6","Se solicita Comandante de Guardia"],["1-7","Se solicita Capitán de Guardia"],["1-8","Se solicita Depto. Investigación de Incendios"],["1-9","Se solicita Equipo USAR"],["1-10","Se solicita Apoyo bomberil que se indica..."],["1-11","Persona que se comunicó con Central acérquese a la máquina"],["1-12","Indique tiempo estimado de llegada de..."]]},
-    {id:"despacho",lb:"Despacho",ic:"🚒",cl:"#2A9D8F",ds:[
-      ["2-0","Despache al lugar un Carro Bomba"],["2-1","Despache al lugar un Carro Portaescalas"],["2-2","Despache al lugar un Carro de Rescate"],["2-3","Despache al lugar Ambulancia de bomberos"],["2-4","Despache al lugar un Carro Cisterna"],["2-5","Despache al lugar un Carro Haz-Mat"],["2-6","Despache al lugar un Carro... (específico)"],["2-7","Despache al lugar una Mecánica Telescópica"],["2-8","Despache al lugar un Carro de Transporte"],["2-9","Despache al lugar un Brazo Articulado / Snorkel"],["2-10","Despache Material Mayor con Motobomba"],["2-11","Despache Material Mayor con Grupo Electrógeno"],["2-12","Despache Material Mayor con Cascada de Aire Comprimido"],["2-13","Despache al lugar un Carro de Rescate Pesado"],["2-14","Despache al lugar un Carro Bomba Forestal"]]},
-    {id:"comunicacion",lb:"Comunicación",ic:"📞",cl:"#E9C46A",ds:[
-      ["3-0","Comunicarse con la Central de Alarmas"],["3-1","Comunicarse al Cuartel General"],["3-2","Comunicarse con su Compañía"],["3-3","Comunicarse con su domicilio"],["3-4","Comunicarse con su trabajo"],["3-5","Comunicarse con el número..."],["3-6","Desocupe el teléfono del Cuartel"],["3-7","Se solicita comunicación telefónica al celular"],["33","Se solicita comunicación Urgente"]]},
-    {id:"frecuencias",lb:"Frecuencias",ic:"📡",cl:"#8338EC",ds:[
-      ["5-0","Frecuencia Nacional de Bomberos"],["5-1","Frec. 1 con repetidor (Despacho)"],["5-2","Frec. 2 con repetidor (Tráfico Normal)"],["5-3","Frec. 3 con repetidor (Oficiales Generales)"],["5-4","Frec. 4 con repetidor (Alerce)"],["5-5","Frecuencia 1 sin repetidor"],["5-6","Frecuencia 2 sin repetidor"],["5-7","Frecuencia 3 sin repetidor"],["5-8","Frecuencia 4 sin repetidor"],["5-9","Frecuencia Interna de Compañía"]]},
-    {id:"operacion",lb:"Operación",ic:"⚙️",cl:"#F77F00",ds:[
-      ["6-0","Dar Conforme: quién va a cargo, n° bomberos, personal especializado"],["6-1","Material Mayor se dirige sin personal (solo conductor)"],["6-2","Indique la dirección exacta"],["6-3","Material Mayor en el lugar"],["6-4","Se solicita instrucciones"],["6-5","Indique ubicación de grifos próximos"],["6-6","Se solicita más personal al lugar"],["6-7","Situación controlada"],["6-8","Material Mayor se encuentra disponible"],["6-9","Material Mayor se retira"],["6-10","Material Mayor en su Cuartel"],["6-11","Material Mayor en panne"],["6-12","Material Mayor sufrió colisión"],["6-13","Material Mayor se dirige a..."],["6-14","Material Mayor a cargar combustible"],["6-15","Material Mayor a recuperar material en Centro Asistencial"],["6-16","Falsa Alarma"],["6-17","Mantención en Cuartel"]]},
-    {id:"mando",lb:"Mando",ic:"🎖️",cl:"#D62828",ds:[
-      ["7-0","Establece puesto de mando, ubicación, indica OBAC"],["7-1","Indique horas de llamado, alarma y material concurrente"],["7-2","Indique bombero a cargo, ubicación, labor, armado a grifo"],["7-3","Cadáver en el lugar"],["7-4","Artefacto explosivo o incendiario"],["7-5","Se sufre agresión"],["7-6","Solicite apoyo logístico"],["7-7","Autorización para informar a la prensa"],["7-8","Detenga trabajo y evacúe estructura siniestrada de inmediato"],["7-9","Proceda a evacuar a los moradores del inmueble"]]},
-    {id:"comandancia",lb:"Comandancia",ic:"🏛️",cl:"#264653",ds:[
-      ["8-0","Comandante o Capitán se encuentra disponible"],["8-1","Comandante o Capitán no se encuentra disponible"],["8-2","Envíe K a Cuartel de... Compañía"],["8-3","Envíe K a mi domicilio"],["8-4","Envíe K a mi oficina"],["8-5","Envíe K a la dirección que se indica..."],["8-6","Me dirijo al lugar por mis propios medios"],["8-7","Concurrir todos los Comandantes"]]},
-    {id:"guardia",lb:"Guardia",ic:"🛡️",cl:"#606C38",ds:[
-      ["9-0","Guardia preventiva grado..."],["9-0 G1","Guardia de X bomberos por Compañías"],["9-0 G2","Guardia Nocturna desde las... Hrs"],["9-0 G3","Acuartelamiento General Inmediato"]]},
-    {id:"servicios",lb:"Tipo Servicio",ic:"🔥",cl:"#BC4749",ds:[
-      ["10-0","Llamado Estructural"],["10-0-1","Inflamación Ducto Evacuación de Gases"],["10-0-2","Llamado Estructural (casa, local comercial)"],["10-0-3","Estructural en Altura (sobre 3 pisos)"],["10-0-4","Estructural Industrial"],["10-0-5","Estructura Menor"],["10-0-6","Embarcación"],["10-1","Llamado de Vehículos"],["10-1-1","Incendio Vehículo Menor"],["10-1-2","Incendio Vehículo con Pasajeros"],["10-1-3","Incendio Vehículo Transporte de Carga"],["10-2","Llamado Pastizales y/o Basurero"],["10-2-1","Fuego en basurero"],["10-2-2","Fuego en vegetación"],["10-3","Rescate de Emergencia"],["10-3-1","Rescate Persona Encerrada"],["10-3-2","Rescate de Persona"],["10-3-3","Rescate Persona en Alturas o Desnivel"],["10-3-4","Rescate Persona en Aguas"],["10-3-5","Rescate Persona Estructura Colapsada"],["10-3-6","Rescate Persona Espacios Confinados"],["10-4","Rescate Vehicular"],["10-4-1","Rescate Vehicular Liviano"],["10-4-2","Rescate Vehicular Pesado / muchas víctimas"],["10-4-3","Rescate Vehicular Camión Mat. Peligrosos"],["10-4-4","Rescate Vehicular Desnivel / Agua / Quebrada"],["10-5","Llamado Haz-Mat"],["10-5-1","Derrame de Hidrocarburo"],["10-5-2","Incidente con Materiales Peligrosos"],["10-6","Emanación de Gases"],["10-6-1","Verificar Olor a Combustible"],["10-6-2","Verificar Fuga/Olor Gas Licuado o Natural"],["10-6-3","Explosión de Gas"],["10-6-4","Explosión de Gas con fuego"],["10-7","Llamado Eléctrico"],["10-8","Llamado No Clasificado"],["10-9","Llamado a Otros Servicios"],["10-10","Incendio declarado (1ª Alarma)"],["10-11","Accidente Aéreo"],["10-12","Apoyo a otros Cuerpos de Bomberos"],["10-13","Bomba, Atentados Terroristas, etc."],["10-14","Simulacro"],["10-61","Anular clave anterior"]]},
-    {id:"radio",lb:"Radio / Varios",ic:"🔧",cl:"#6D6875",ds:[
-      ["11-0","Indique cómo recibe"],["11-1","Fuerte y claro"],["11-2","Se recibe con interferencias"],["11-3","Central solo por frecuencia principal"],["11-4","Indique operador en servicio"],["11-5","Central en transmisión de pruebas"],["11-6","Central transmisión abierta accidentalmente"],["12-1","Asigna cuartel de reemplazo"],["12-2","Retira cuartel de reemplazo"],["12-3","Diríjase al lugar con máxima precaución"],["12-4","Toque sirena del Cuartel"],["12-5","Active inversor de voz"],["12-6","Material Mayor suficiente en el lugar"],["12-7","No armar"],["12-8","Capitán... asume el mando del Cuerpo"],["12-9","Citación a... Compañía"],["12-10","Solicita conductor para..."]]}
-  ];
-  var cuart = [["R-10","1ª Compañía"],["R-20","2ª Compañía"],["R-30","3ª Compañía"],["R-40","4ª Compañía"],["R-50","5ª Compañía"],["R-60","6ª Compañía"],["R-70","7ª Compañía"],["R-80","8ª Compañía"],["R-90","9ª Compañía"]];
+  var C = window.CBPM, UI = window.CBPMUI, esc = UI.esc;
+  var cats = C.cats, cuart = C.cuart, usos = C.usos;
 
-  // ===== REFERENCIAS =====
   var root = document.documentElement;
   var bar = document.getElementById("bar");
   var searchInput = document.getElementById("si");
@@ -373,18 +250,11 @@
   var sideEl = document.getElementById("sd");
   var content = document.getElementById("ct");
   var countEl = document.getElementById("cn");
-  var refEl = document.getElementById("ref");
-  var toast = document.getElementById("ts");
-  var themeBtn = document.getElementById("th");
-  var themeMeta = document.querySelector('meta[name="theme-color"]');
+  var learnEl = document.getElementById("lk");
   var reduceMotion = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
 
-  // ===== UTILIDADES =====
   function norm(str) {
-    return str.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
-  }
-  function esc(str) {
-    return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+    return String(str).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
   }
   // Resalta coincidencias ignorando tildes y mayúsculas, sin alterar el texto original
   function mark(text, q) {
@@ -406,9 +276,6 @@
   function isSub(code) {
     return code.split("-").length > 2 || code.indexOf("G") !== -1;
   }
-  function matches(item, q) {
-    return norm(item[0]).indexOf(q) !== -1 || norm(item[1]).indexOf(q) !== -1;
-  }
 
   // Serie de cada categoría, tomada de sus propias claves (prefijos con dos o más claves)
   function seriesOf(cat) {
@@ -423,43 +290,53 @@
     return (out.length ? out : [order[0]]).join("·");
   }
 
-  // Lista de secciones: las categorías y, al final, los cuarteles
   var sections = [];
-  (function buildSections() {
-    for (var i = 0; i < cats.length; i++) {
-      sections.push({ id: cats[i].id, sn: seriesOf(cats[i]), lb: cats[i].lb, items: cats[i].ds, quarters: false });
-    }
-    var q = [];
-    for (var k = 0; k < cuart.length; k++) q.push([cuart[k][0], cuart[k][1]]);
-    sections.push({ id: "cuarteles", sn: "R", lb: "Cuarteles", items: q, quarters: true });
-  })();
+  for (var i0 = 0; i0 < cats.length; i0++) {
+    sections.push({ id: cats[i0].id, sn: seriesOf(cats[i0]), lb: cats[i0].lb, items: cats[i0].ds, kind: "claves" });
+  }
+  sections.push({ id: "material", sn: "MM", lb: "Material mayor", items: C.material, kind: "mat",
+    note: "Letra con que se identifica cada pieza de material mayor. En los ejemplos del POE el número acompaña a la letra: B-1, BX-1, R-4." });
+  sections.push({ id: "personal", sn: "#", lb: "Claves del personal", items: C.personal, kind: "wide",
+    note: "Así se nombra por radio a oficiales, inspectores y conductores. Se dicen como número completo: 502 es «quinientos dos», nunca «cinco cero dos»." });
+  var qItems = [];
+  for (var k0 = 0; k0 < cuart.length; k0++) qItems.push([cuart[k0][0], "Cuartel " + cuart[k0][1]]);
+  sections.push({ id: "cuarteles", sn: "R", lb: "Cuarteles", items: qItems, kind: "grid3" });
 
   var totalCodes = 0;
   for (var tc = 0; tc < cats.length; tc++) totalCodes += cats[tc].ds.length;
-  refEl.textContent = "Cartilla POE-C01 · " + totalCodes + " claves · " + cuart.length + " cuarteles";
+  document.getElementById("ref").textContent = "Cartilla POE-C01 · " + totalCodes + " claves · " + cuart.length + " cuarteles";
 
-  // ===== ÍNDICES (pestañas en móvil, índice lateral en pantallas anchas) =====
+  // ===== ÍNDICES =====
   (function buildNav() {
-    var t = "", s = '<h3>Series</h3>';
+    var t = "", s = "<h3>Series</h3>";
     for (var i = 0; i < sections.length; i++) {
       var sec = sections[i];
-      t += '<button type="button" class="tab" data-id="' + sec.id + '"><b>' + esc(sec.sn) + '</b>' + esc(sec.lb) + '</button>';
-      s += '<a href="#s-' + sec.id + '" data-id="' + sec.id + '"><b>' + esc(sec.sn) + '</b><span>' + esc(sec.lb) + '</span><small>' + sec.items.length + '</small></a>';
+      t += '<button type="button" class="tab" data-id="' + sec.id + '"><b>' + esc(sec.sn) + "</b>" + esc(sec.lb) + "</button>";
+      s += '<a href="#s-' + sec.id + '" data-id="' + sec.id + '"><b>' + esc(sec.sn) + "</b><span>" + esc(sec.lb) + "</span><small>" + sec.items.length + "</small></a>";
     }
     tabsEl.innerHTML = t;
     sideEl.innerHTML = s;
   })();
 
   // ===== CARTILLA =====
-  function rowHTML(item, next, q, quarters) {
-    var code = item[0], desc = item[1];
-    var cls = "row";
-    if (!quarters) {
+  var open = {};
+
+  function itemHTML(item, next, q, kind, forceOpen) {
+    var code = item[0], desc = item[1], uso = kind === "claves" ? usos[code] : null;
+    var cls = "item";
+    if (kind === "claves") {
       if (isSub(code)) cls += " sub";
       else if (next && isSub(next[0])) cls += " par";
     }
-    return '<button type="button" class="' + cls + '" data-code="' + esc(code) + '">' +
-      '<span class="cd">' + mark(code, q) + '</span><span class="ds">' + mark(desc, q) + '</span></button>';
+    var isOpen = !!uso && (open[code] || forceOpen);
+    var h = '<div class="' + cls + '">';
+    h += '<button type="button" class="row" data-code="' + esc(code) + '"' + (uso ? ' data-uso="1" aria-expanded="' + (isOpen ? "true" : "false") + '"' : "") + ">";
+    h += '<span class="cd">' + mark(code, q) + '</span><span class="ds">' + mark(desc, q) + "</span>";
+    h += '<span class="ch" aria-hidden="true">' + (uso ? "+" : "") + "</span></button>";
+    if (uso) {
+      h += '<div class="det"' + (isOpen ? "" : " hidden") + "><p>" + mark(uso, q) + '</p><button type="button" class="cp" data-code="' + esc(code) + '">Copiar clave ' + esc(code) + "</button></div>";
+    }
+    return h + "</div>";
   }
 
   var visibleIds = [];
@@ -473,17 +350,23 @@
     for (i = 0; i < sections.length; i++) {
       var sec = sections[i], rows = "", n = 0;
       for (j = 0; j < sec.items.length; j++) {
-        if (searching && !matches(sec.items[j], q)) continue;
-        rows += rowHTML(sec.items[j], sec.items[j + 1], q, sec.quarters);
+        var it = sec.items[j];
+        var uso = sec.kind === "claves" ? usos[it[0]] : null;
+        var inMain = norm(it[0]).indexOf(q) !== -1 || norm(it[1]).indexOf(q) !== -1;
+        var inUso = !!uso && norm(uso).indexOf(q) !== -1;
+        if (searching && !inMain && !inUso) continue;
+        rows += itemHTML(it, sec.items[j + 1], q, sec.kind, searching && inUso && !inMain);
         n++;
       }
       if (!n) continue;
       found += n;
       visibleIds.push(sec.id);
+      var unit = sec.id === "cuarteles" ? " cuarteles" : (sec.kind === "claves" ? " claves" : "");
       html += '<section class="sec" id="s-' + sec.id + '" data-id="' + sec.id + '">' +
-        '<div class="sec-h"><span class="sn">' + esc(sec.sn) + '</span><h2>' + esc(sec.lb) + '</h2>' +
-        '<span class="sc">' + (searching ? n + " de " + sec.items.length : sec.items.length + (sec.quarters ? " cuarteles" : " claves")) + '</span></div>' +
-        '<div class="rows' + (sec.quarters ? " grid3" : "") + '">' + rows + '</div></section>';
+        '<div class="sec-h"><span class="sn">' + esc(sec.sn) + "</span><h2>" + esc(sec.lb) + "</h2>" +
+        '<span class="sc">' + (searching ? n + " de " + sec.items.length : sec.items.length + unit) + "</span></div>" +
+        (sec.note && !searching ? '<p class="sec-note">' + esc(sec.note) + "</p>" : "") +
+        '<div class="rows' + (sec.kind !== "claves" ? " " + sec.kind : "") + '">' + rows + "</div></section>";
     }
 
     if (searching && !found) {
@@ -493,6 +376,7 @@
 
     searchClear.hidden = !searching;
     tabsEl.hidden = searching;
+    learnEl.hidden = searching;
     countEl.hidden = !searching;
     if (searching) {
       countEl.innerHTML = "<b>" + found + "</b> " + (found === 1 ? "resultado" : "resultados") + " para «" + esc(searchInput.value.trim()) + "»";
@@ -501,6 +385,7 @@
     for (i = 0; i < links.length; i++) {
       links[i].className = (searching && visibleIds.indexOf(links[i].getAttribute("data-id")) === -1) ? "dim" : "";
     }
+    activeId = null;
     measureBar();
     spy();
   }
@@ -511,6 +396,9 @@
     barH = bar.offsetHeight;
     root.style.setProperty("--bar-h", barH + "px");
   }
+
+  var activeId = null;
+  var navLock = false, unlockTimer = null;
 
   function goTo(id) {
     if (searchInput.value) { searchInput.value = ""; render(); }
@@ -524,8 +412,6 @@
     window.scrollTo({ top: Math.max(0, y), behavior: reduceMotion ? "auto" : "smooth" });
   }
 
-  var activeId = null;
-  var navLock = false, unlockTimer = null;
   function setActive(id) {
     if (id === activeId) return;
     activeId = id;
@@ -558,9 +444,10 @@
 
   var ticking = false;
   window.addEventListener("scroll", function() {
-    if (ticking) return;
-    ticking = true;
-    requestAnimationFrame(function() { ticking = false; spy(); });
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(function() { ticking = false; spy(); });
+    }
     if (navLock) {
       clearTimeout(unlockTimer);
       unlockTimer = setTimeout(function() { navLock = false; }, 160);
@@ -600,55 +487,30 @@
     }
   });
 
-  // ===== COPIAR CLAVE =====
-  function showToast(html) {
-    toast.innerHTML = html;
-    toast.className = "toast on";
-    clearTimeout(showToast.t);
-    showToast.t = setTimeout(function() { toast.className = "toast"; }, 1600);
-  }
-  function copyText(text) {
-    if (navigator.clipboard && navigator.clipboard.writeText) return navigator.clipboard.writeText(text);
-    return new Promise(function(resolve, reject) {
-      try {
-        var ta = document.createElement("textarea");
-        ta.value = text; ta.setAttribute("readonly", "");
-        ta.style.cssText = "position:fixed;top:0;left:0;opacity:0";
-        document.body.appendChild(ta);
-        ta.select();
-        var ok = document.execCommand("copy");
-        document.body.removeChild(ta);
-        ok ? resolve() : reject();
-      } catch (err) { reject(err); }
+  // ===== VER USO Y COPIAR =====
+  function copy(code) {
+    UI.copyText(code).then(function() {
+      UI.showToast("Clave <b>" + esc(code) + "</b> copiada");
+    }, function() {
+      UI.showToast("No se pudo copiar la clave");
     });
   }
   content.addEventListener("click", function(e) {
+    var cp = e.target.closest(".cp");
+    if (cp) { copy(cp.getAttribute("data-code")); return; }
     var row = e.target.closest(".row");
     if (!row) return;
     var code = row.getAttribute("data-code");
-    copyText(code).then(function() {
-      showToast("Clave <b>" + esc(code) + "</b> copiada");
-    }, function() {
-      showToast("No se pudo copiar la clave");
-    });
+    if (row.getAttribute("data-uso")) {
+      var det = row.nextElementSibling;
+      var isOpen = row.getAttribute("aria-expanded") === "true";
+      row.setAttribute("aria-expanded", isOpen ? "false" : "true");
+      det.hidden = isOpen;
+      if (isOpen) delete open[code]; else open[code] = true;
+    } else {
+      copy(code);
+    }
   });
-
-  // ===== TEMA =====
-  function isDark() {
-    var t = root.getAttribute("data-theme");
-    if (t) return t === "dark";
-    return !!(window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
-  }
-  function syncThemeColor() {
-    if (themeMeta) themeMeta.setAttribute("content", isDark() ? "#0A1160" : "#0A1472");
-  }
-  themeBtn.addEventListener("click", function() {
-    var next = isDark() ? "light" : "dark";
-    root.setAttribute("data-theme", next);
-    try { localStorage.setItem("cbpm-theme", next); } catch (e) {}
-    syncThemeColor();
-  });
-  syncThemeColor();
 
   // ===== AVISO DE INSTALACIÓN (iOS) =====
   var note = document.getElementById("ib");
@@ -657,7 +519,7 @@
   var closed = false;
   try { closed = localStorage.getItem("cbpm-ios-banner") === "1"; } catch (e) {}
   if (isIOS && !isStandalone && !closed) {
-    document.getElementById("it").innerHTML = '<b>Instalar como app:</b> toca Compartir (↑) y luego <b>Agregar a inicio</b>.';
+    document.getElementById("it").innerHTML = "<b>Instalar como app:</b> toca Compartir (↑) y luego <b>Agregar a inicio</b>.";
     note.hidden = false;
   }
   document.getElementById("ic").addEventListener("click", function() {
@@ -665,10 +527,8 @@
     try { localStorage.setItem("cbpm-ios-banner", "1"); } catch (e) {}
   });
 
-  // ===== INICIO =====
   render();
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(function() { measureBar(); spy(); });
-
 })();
 </script>
 </body>

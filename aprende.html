@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0A1472">
+<meta name="color-scheme" content="light dark">
+<meta name="apple-mobile-web-app-title" content="Claves CBPM">
+<meta name="description" content="Guía de estudio para aprender a usar las claves radiales del Cuerpo de Bomberos de Puerto Montt en un despacho.">
+<title>Aprende las Claves · CB Puerto Montt</title>
+<link rel="icon" type="image/png" href="img/favicon.png">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600&display=swap">
+<script>
+  (function(){
+    try {
+      var t = localStorage.getItem("cbpm-theme");
+      if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
+    } catch (e) {}
+  })();
+</script>
+<link rel="stylesheet" href="css/base.css">
+<style>
+  /* Guía de estudio: lecciones numeradas en orden de aprendizaje, índice lateral en pantallas anchas. */
+  .layout { padding-top: 22px; padding-bottom: 56px; }
+  .toc { display: none; }
+  .main { min-width: 0; }
+
+  .intro { background: var(--sheet); border: 1px solid var(--rule); border-radius: 4px; padding: 22px 20px; margin-bottom: 20px; }
+  .eyebrow { font-family: var(--display); font-weight: 700; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--red); }
+  .intro h2 { font-family: var(--display); font-weight: 800; font-size: clamp(28px, 6vw, 40px); line-height: 1; text-transform: uppercase; margin-top: 6px; text-wrap: balance; }
+  .intro p { font-size: 17px; line-height: 1.55; color: var(--ink-2); margin-top: 12px; max-width: 64ch; }
+  .srcs { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); gap: 12px; margin-top: 18px; }
+  .src { padding: 12px 14px; border-radius: 4px; border: 1.5px solid var(--rule-2); }
+  .src.of { border-color: var(--code); }
+  .src b { font-family: var(--display); font-size: 17px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em; display: block; }
+  .src span { font-size: 14px; line-height: 1.45; color: var(--ink-2); display: block; margin-top: 3px; }
+  .src i { font-style: normal; font-family: var(--display); font-weight: 700; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; padding: 2px 7px; border-radius: 3px; display: inline-block; margin-bottom: 6px; }
+  .src.of i { background: var(--code); color: var(--sheet); }
+  .src.st i { background: var(--rule); color: var(--ink-2); }
+
+  .mtoc { background: var(--sheet); border: 1px solid var(--rule); border-radius: 4px; padding: 16px 18px; margin-bottom: 20px; }
+  .mtoc h3, .toc h3 { font-family: var(--display); font-size: 13px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 8px; }
+  .mtoc ol { list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr)); gap: 2px 18px; }
+  .mtoc a, .toc a { display: flex; gap: 10px; align-items: baseline; padding: 6px 0; color: var(--ink-2); text-decoration: none; font-size: 15px; }
+  .mtoc a b, .toc a b { font-family: var(--display); font-weight: 800; font-size: 17px; color: var(--red); min-width: 22px; font-variant-numeric: tabular-nums; }
+  .mtoc a:hover, .toc a:hover { color: var(--ink); }
+
+  .lesson { background: var(--sheet); border: 1px solid var(--rule); border-radius: 4px; padding: 24px 20px 26px; margin-bottom: 20px; }
+  .lh { display: flex; align-items: flex-end; gap: 14px; padding-bottom: 12px; border-bottom: 2px solid var(--ink); margin-bottom: 16px; }
+  .ln { font-family: var(--display); font-weight: 800; font-size: 48px; line-height: 0.8; color: var(--red); font-variant-numeric: tabular-nums; }
+  .lh h2 { font-family: var(--display); font-weight: 700; font-size: clamp(22px, 5vw, 28px); line-height: 1.05; text-transform: uppercase; letter-spacing: 0.02em; text-wrap: balance; }
+  .lh small { display: block; font-family: var(--text); font-size: 13px; font-weight: 500; text-transform: none; letter-spacing: 0; color: var(--ink-3); margin-top: 4px; }
+  .lesson h3 { font-family: var(--display); font-weight: 700; font-size: 20px; text-transform: uppercase; letter-spacing: 0.02em; margin: 22px 0 8px; }
+  .lesson p, .lesson li { font-size: 16px; line-height: 1.6; color: var(--ink-2); max-width: 66ch; }
+  .lesson p + p { margin-top: 10px; }
+  .lesson ul, .lesson ol.steps { padding-left: 20px; margin-top: 8px; }
+  .lesson li + li { margin-top: 4px; }
+  .lesson strong { color: var(--ink); font-weight: 600; }
+  .k { font-family: var(--display); font-weight: 700; font-size: 1.12em; color: var(--code); white-space: nowrap; }
+  .q { font-family: var(--display); font-weight: 600; font-size: 1.1em; color: var(--ink); }
+
+  .callout { margin-top: 16px; padding: 12px 14px; border-radius: 4px; font-size: 15px; line-height: 1.5; }
+  .callout.poe { background: var(--hover); border: 1.5px solid var(--code); color: var(--ink-2); }
+  .callout.warn { background: var(--red-soft); border: 1.5px solid var(--red); color: var(--ink); }
+  .callout.tip { background: var(--gold-soft); border: 1.5px solid var(--gold); color: var(--ink); }
+  .callout b { color: var(--ink); }
+
+  figure { margin: 18px 0 6px; }
+  figure svg { display: block; width: 100%; height: auto; max-width: 100%; }
+  figcaption { font-size: 13px; color: var(--ink-3); margin-top: 8px; line-height: 1.4; }
+  .fig-narrow { max-width: 420px; }
+
+  /* Clases de color para ilustraciones SVG */
+  .f-sheet { fill: var(--sheet); } .f-hover { fill: var(--hover); } .f-ink { fill: var(--ink); } .f-ink2 { fill: var(--ink-2); }
+  .f-ink3 { fill: var(--ink-3); } .f-code { fill: var(--code); } .f-red { fill: var(--red); } .f-gold { fill: var(--gold); } .f-none { fill: none; }
+  .f-rule { fill: var(--rule); }
+  .s-ink { stroke: var(--ink); } .s-ink3 { stroke: var(--ink-3); } .s-code { stroke: var(--code); } .s-red { stroke: var(--red); } .s-rule { stroke: var(--rule-2); }
+  .t-lb { font-family: var(--display); font-weight: 700; font-size: 15px; text-transform: uppercase; letter-spacing: 0.04em; }
+  .t-sm { font-family: var(--text); font-size: 13px; }
+  .t-big { font-family: var(--display); font-weight: 800; font-size: 20px; }
+
+  /* Tarjetas de equipos */
+  .eq { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 12px; margin-top: 14px; }
+  .eq div { border: 1.5px solid var(--rule-2); border-radius: 4px; padding: 14px; }
+  .eq svg { width: 54px; height: 54px; display: block; margin-bottom: 8px; }
+  .eq b { font-family: var(--display); font-size: 19px; font-weight: 700; text-transform: uppercase; display: block; }
+  .eq span { font-size: 14px; line-height: 1.45; color: var(--ink-2); display: block; margin-top: 4px; }
+
+  /* Pasos */
+  .steps3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 12px; margin-top: 12px; counter-reset: st; }
+  .steps3 div { padding: 12px 14px; border-top: 3px solid var(--red); background: var(--hover); }
+  .steps3 b { font-family: var(--display); font-size: 18px; font-weight: 700; text-transform: uppercase; display: block; }
+  .steps3 span { font-size: 14px; line-height: 1.45; color: var(--ink-2); display: block; margin-top: 4px; }
+
+  /* Diálogo radial */
+  .talk { margin-top: 12px; border-left: 3px solid var(--rule-2); padding-left: 14px; display: grid; gap: 8px; }
+  .talk p { margin: 0 !important; display: grid; grid-template-columns: 92px 1fr; gap: 10px; align-items: baseline; }
+  .talk p > span:first-child { font-family: var(--display); font-weight: 700; font-size: 14px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-3); }
+  .talk p > span:last-child { font-family: var(--display); font-weight: 600; font-size: 19px; color: var(--ink); line-height: 1.3; }
+  .talk p.c > span:first-child { color: var(--red); }
+  .talk .act { font-family: var(--text); font-size: 14px; font-weight: 500; font-style: italic; color: var(--ink-3); }
+
+  /* Anatomía de una frase */
+  .anat { display: flex; flex-wrap: wrap; gap: 8px 6px; margin-top: 14px; align-items: flex-start; }
+  .anat > span { display: flex; flex-direction: column; align-items: flex-start; }
+  .anat > span > b { font-family: var(--display); font-weight: 700; font-size: 24px; color: var(--ink); padding: 4px 10px; border-radius: 4px; background: var(--hover); border-bottom: 3px solid var(--code); line-height: 1.15; }
+  .anat > span:nth-child(2n) > b { border-bottom-color: var(--red); }
+  .anat > span > small { font-size: 12.5px; line-height: 1.35; color: var(--ink-3); margin-top: 5px; max-width: 150px; padding-left: 2px; }
+
+  /* Se dice / no se dice */
+  .dd { display: grid; gap: 10px; margin-top: 12px; }
+  .dd > div { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--rule); border-radius: 4px; overflow: hidden; }
+  .dd > div > span { padding: 10px 12px; font-size: 15px; line-height: 1.4; }
+  .dd .no { background: var(--red-soft); color: var(--ink); }
+  .dd .si { background: var(--ok-soft); color: var(--ink); }
+  .dd .no::before, .dd .si::before { display: block; font-family: var(--display); font-weight: 700; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 3px; }
+  .dd .no::before { content: "No se dice"; color: var(--red); }
+  .dd .si::before { content: "Se dice"; color: var(--ok); }
+  .dd small { display: block; grid-column: 1 / -1; padding: 8px 12px; font-size: 13.5px; color: var(--ink-3); border-top: 1px solid var(--rule); background: var(--sheet); }
+
+  /* Frecuencias */
+  .freq { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 1fr)); gap: 10px; margin-top: 14px; }
+  .freq div { border: 1.5px solid var(--rule-2); border-radius: 4px; padding: 12px 14px; }
+  .freq div.main5 { border-color: var(--code); background: var(--hover); }
+  .freq b { font-family: var(--display); font-weight: 800; font-size: 26px; color: var(--code); line-height: 1; }
+  .freq em { font-style: normal; font-family: var(--display); font-weight: 700; font-size: 16px; text-transform: uppercase; margin-left: 8px; color: var(--ink); }
+  .freq span { display: block; font-size: 14px; line-height: 1.45; color: var(--ink-2); margin-top: 6px; }
+
+  /* Despacho paso a paso */
+  .disp { margin-top: 16px; border: 1.5px solid var(--rule-2); border-radius: 4px; overflow: hidden; }
+  .disp-top { display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: var(--head); color: #fff; }
+  .disp-top b { font-family: var(--display); font-weight: 700; font-size: 16px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .disp-top span { margin-left: auto; font-family: var(--display); font-weight: 700; font-size: 15px; color: var(--gold); font-variant-numeric: tabular-nums; }
+  .prog { display: flex; gap: 3px; padding: 10px 14px 0; }
+  .prog i { flex: 1; height: 5px; border-radius: 2px; background: var(--rule); }
+  .prog i.on { background: var(--red); }
+  .disp-body { padding: 14px 16px 16px; min-height: 260px; }
+  .disp-body h4 { font-family: var(--display); font-weight: 800; font-size: 22px; text-transform: uppercase; line-height: 1.1; }
+  .disp-body .freqtag { display: inline-block; margin-top: 6px; font-family: var(--display); font-weight: 700; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--code); border: 1.5px solid var(--code); border-radius: 3px; padding: 1px 7px; }
+  .why { margin-top: 14px; padding: 10px 12px; background: var(--gold-soft); border-left: 3px solid var(--gold); font-size: 15px; line-height: 1.5; color: var(--ink); }
+  .disp-nav { display: flex; gap: 10px; padding: 0 16px 16px; }
+  .btn {
+    padding: 11px 18px; border-radius: 4px; border: 1.5px solid var(--rule-2); background: var(--sheet); color: var(--ink);
+    font-family: var(--display); font-weight: 700; font-size: 16px; letter-spacing: 0.04em; text-transform: uppercase; cursor: pointer;
+  }
+  .btn:hover { border-color: var(--code); }
+  .btn.pri { background: var(--red); border-color: var(--red); color: #fff; }
+  .btn.pri:hover { filter: brightness(1.08); }
+  .btn:disabled { opacity: 0.4; cursor: default; }
+  .btn.ghost { margin-left: auto; }
+
+  /* Alarmas escalonadas */
+  .ladder { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+  .ladder span { font-family: var(--display); font-weight: 700; font-size: 17px; padding: 8px 12px; border-radius: 3px; background: var(--hover); border: 1.5px solid var(--rule-2); color: var(--ink); }
+  .ladder span:first-child { background: var(--red); border-color: var(--red); color: #fff; }
+
+  /* LIP y LUNAR */
+  .acr { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 12px; margin-top: 12px; }
+  .acr > div { border: 1.5px solid var(--rule-2); border-radius: 4px; padding: 12px 14px; }
+  .acr h4 { font-family: var(--display); font-weight: 800; font-size: 24px; letter-spacing: 0.1em; color: var(--red); }
+  .acr dl { display: grid; grid-template-columns: 26px 1fr; gap: 6px 8px; margin-top: 8px; }
+  .acr dt { font-family: var(--display); font-weight: 800; font-size: 20px; color: var(--code); line-height: 1.2; }
+  .acr dd { font-size: 15px; line-height: 1.45; color: var(--ink-2); }
+
+  /* Autoevaluación */
+  .quiz { margin-top: 14px; border: 1.5px solid var(--rule-2); border-radius: 4px; padding: 16px; }
+  .qmodes { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+  .qmodes .btn[aria-pressed="true"] { background: var(--code); border-color: var(--code); color: var(--sheet); }
+  .qstat { font-size: 14px; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+  .qprompt { margin: 10px 0 14px; }
+  .qprompt .big { font-family: var(--display); font-weight: 800; font-size: 46px; color: var(--code); line-height: 1; }
+  .qprompt .txt { font-size: 19px; font-weight: 600; color: var(--ink); line-height: 1.35; }
+  .qopts { display: grid; gap: 8px; }
+  .qopt {
+    text-align: left; padding: 12px 14px; border: 1.5px solid var(--rule-2); border-radius: 4px; background: var(--sheet);
+    font-size: 16px; line-height: 1.35; color: var(--ink); cursor: pointer; display: flex; gap: 10px; align-items: baseline;
+  }
+  .qopt .k { min-width: 64px; }
+  .qopt:hover:not(:disabled) { border-color: var(--code); }
+  .qopt.good { background: var(--ok-soft); border-color: var(--ok); }
+  .qopt.bad { background: var(--red-soft); border-color: var(--red); }
+  .qopt:disabled { cursor: default; }
+  .qfeed { margin-top: 12px; font-size: 15px; line-height: 1.5; min-height: 22px; color: var(--ink-2); }
+  .qfeed b { color: var(--ink); }
+  .qres { text-align: center; padding: 10px 0 4px; }
+  .qres .score { font-family: var(--display); font-weight: 800; font-size: 56px; color: var(--code); line-height: 1; font-variant-numeric: tabular-nums; }
+  .qres .grade { font-family: var(--display); font-weight: 700; font-size: 22px; margin-top: 6px; }
+  .qres p { font-size: 14px; color: var(--ink-3); margin: 6px auto 0; }
+
+  .cmp { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 15px; }
+  .cmp th, .cmp td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--rule); vertical-align: top; line-height: 1.4; }
+  .cmp th { font-family: var(--display); font-weight: 700; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); }
+  .cmp td:first-child { font-family: var(--display); font-weight: 700; font-size: 18px; color: var(--code); white-space: nowrap; }
+  .tblw { overflow-x: auto; }
+
+  @media (min-width: 980px) {
+    .layout { display: grid; grid-template-columns: 236px 1fr; gap: 28px; align-items: start; padding-top: 28px; }
+    .toc { display: block; position: sticky; top: 20px; }
+    .toc a { padding: 6px 12px; border-left: 3px solid transparent; }
+    .toc a.on { border-left-color: var(--red); background: var(--sheet); color: var(--ink); font-weight: 600; }
+    .toc h3 { padding-left: 12px; }
+    .mtoc { display: none; }
+    .lesson, .intro { padding: 30px 32px 32px; }
+  }
+  .disp-nav .btn { white-space: nowrap; }
+  @media (max-width: 420px) {
+    .lesson { padding: 20px 14px 22px; }
+    .disp-nav { gap: 8px; padding-left: 12px; padding-right: 12px; }
+    .disp-nav .btn { padding: 10px 11px; font-size: 15px; }
+    .talk p { grid-template-columns: 70px 1fr; }
+    .talk p > span:last-child { font-size: 17px; }
+    .dd > div { grid-template-columns: 1fr; }
+  }
+  @media print {
+    .toc, .mtoc, .disp-nav, .quiz { display: none !important; }
+    .layout { display: block; }
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="top-row">
+      <picture>
+        <source srcset="img/logo.webp" type="image/webp">
+        <img class="logo" src="img/logo.png" width="88" height="88" alt="Escudo del Cuerpo de Bomberos de Puerto Montt">
+      </picture>
+      <div class="ttl">
+        <div class="org">Cuerpo de Bomberos de Puerto Montt</div>
+        <h1>Aprende las claves</h1>
+        <div class="ref">Guía de estudio de comunicaciones radiales</div>
+      </div>
+      <button class="tbtn" id="th" type="button" aria-label="Cambiar entre tema claro y oscuro" title="Cambiar tema">
+        <svg class="sun" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="moon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      </button>
+    </div>
+    <nav class="pnav" aria-label="Secciones del sitio">
+      <a href="./">Cartilla</a>
+      <a href="aprende.html" aria-current="page">Aprende</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap layout">
+  <nav class="toc" id="toc" aria-label="Lecciones"></nav>
+  <main class="main">
+
+    <section class="intro">
+      <div class="eyebrow">Guía de estudio</div>
+      <h2>Cómo se habla por radio en un despacho</h2>
+      <p>Esta guía explica, paso a paso, cómo se usan las claves radiales desde que la Central despacha una emergencia hasta que la máquina vuelve al cuartel. Está pensada para quien recién se integra a una compañía y para quien quiera repasar.</p>
+      <div class="srcs">
+        <div class="src of"><i>Norma oficial</i><b>POE-C01</b><span>Manual de Comunicaciones del Cuerpo de Bomberos de Puerto Montt, versión 1.0 (25-05-2020). Las claves y procedimientos de esta guía salen de aquí.</span></div>
+        <div class="src st"><i>Material de estudio</i><b>Academia Nacional de Bomberos</b><span>Manual del participante «Comunicaciones para Bomberos» (2019). Aporta los conceptos generales: comunicación, equipos y MAYDAY.</span></div>
+      </div>
+      <div class="callout warn"><b>Importante:</b> esta guía es para estudiar. En servicio mandan el POE vigente, las instrucciones de la Central y las órdenes del mando en el lugar.</div>
+    </section>
+
+    <nav class="mtoc" id="mtoc" aria-label="Lecciones"></nav>
+
+    <!-- 1 -->
+    <section class="lesson" id="l-comunicacion" data-t="La comunicación">
+      <div class="lh"><span class="ln">1</span><h2>La comunicación<small>Por qué existen las claves</small></h2></div>
+      <p>Comunicar es un proceso de <strong>doble vía</strong>: no basta con que alguien entregue un mensaje, el otro tiene que recibirlo, entenderlo y responder. Esa respuesta se llama <strong>retroalimentación</strong>, y en la radio es lo que confirma que el mensaje llegó.</p>
+      <p>Las claves son un <strong>código común</strong>: un número corto que el emisor y el receptor entienden igual. Así el mensaje es breve, claro y deja libre la frecuencia para otros.</p>
+      <figure class="fig-narrow">
+        <svg viewBox="0 0 340 330" role="img" aria-labelledby="f1t">
+          <title id="f1t">Proceso de comunicación por radio: la Central emite un mensaje en clave por el canal 5-1, la máquina lo recibe y responde con retroalimentación.</title>
+          <rect x="6" y="6" width="328" height="318" rx="6" class="f-none s-rule" stroke-width="1.5" stroke-dasharray="6 5"/>
+          <text x="20" y="28" class="t-sm f-ink3">Contexto: la emergencia y su entorno</text>
+          <rect x="70" y="44" width="200" height="58" rx="4" class="f-code"/>
+          <text x="170" y="68" text-anchor="middle" class="t-lb" fill="#fff">Emisor</text>
+          <text x="170" y="89" text-anchor="middle" class="t-sm" fill="#fff">Central de Alarmas</text>
+          <line x1="150" y1="104" x2="150" y2="218" class="s-red" stroke-width="3"/>
+          <path d="M142 210 L150 224 L158 210 Z" class="f-red"/>
+          <line x1="190" y1="226" x2="190" y2="112" class="s-ink3" stroke-width="2" stroke-dasharray="5 4"/>
+          <path d="M183 118 L190 104 L197 118 Z" class="f-ink3"/>
+          <text x="140" y="140" text-anchor="end" class="t-lb f-ink">Mensaje</text>
+          <text x="140" y="158" text-anchor="end" class="t-sm f-ink2">«6-0 R-4»</text>
+          <text x="140" y="182" text-anchor="end" class="t-lb f-ink">Canal</text>
+          <text x="140" y="200" text-anchor="end" class="t-sm f-ink2">frecuencia 5-1</text>
+          <text x="202" y="150" class="t-lb f-ink">Retroalimen-</text>
+          <text x="202" y="168" class="t-lb f-ink">tación</text>
+          <text x="202" y="188" class="t-sm f-ink2">«R-4 conforme…»</text>
+          <rect x="70" y="228" width="200" height="58" rx="4" class="f-sheet s-code" stroke-width="2.5"/>
+          <text x="170" y="252" text-anchor="middle" class="t-lb f-code">Receptor</text>
+          <text x="170" y="273" text-anchor="middle" class="t-sm f-ink2">Máquina R-4</text>
+          <text x="170" y="310" text-anchor="middle" class="t-sm f-ink3">Código: las claves del POE-C01</text>
+        </svg>
+        <figcaption>Elementos del proceso de comunicación aplicados a la radio. Ilustración basada en el modelo del manual de la ANB, con un ejemplo del POE-C01.</figcaption>
+      </figure>
+      <div class="callout tip"><b>Si olvidas una clave</b>, di lo que necesitas en forma simple. Es mejor un mensaje claro sin clave que una clave equivocada. (Recomendación del manual de la ANB.)</div>
+    </section>
+
+    <!-- 2 -->
+    <section class="lesson" id="l-equipos" data-t="Los equipos de radio">
+      <div class="lh"><span class="ln">2</span><h2>Los equipos de radio<small>Base, móvil y portátil</small></h2></div>
+      <p>El POE-C01 define tres tipos de equipo. Todos transmiten y reciben, pero cada uno tiene un lugar y un uso distinto.</p>
+      <div class="eq">
+        <div>
+          <svg viewBox="0 0 54 54" aria-hidden="true"><path d="M27 6 L16 50 M27 6 L38 50 M20 34 H34 M18 42 H36 M22 24 H32" class="s-code f-none" stroke-width="2.5" stroke-linecap="round"/><circle cx="27" cy="6" r="3.5" class="f-red"/><path d="M17 4 a12 12 0 0 0 0 8 M37 4 a12 12 0 0 1 0 8" class="s-red f-none" stroke-width="2" stroke-linecap="round"/></svg>
+          <b>Base</b><span>Equipo fijo de la Central de Alarmas y de cada cuartel. Tiene antena exterior, normalmente en una torre.</span>
+        </div>
+        <div>
+          <svg viewBox="0 0 54 54" aria-hidden="true"><rect x="4" y="22" width="34" height="18" rx="2" class="f-red"/><path d="M38 26 H46 L51 33 V40 H38 Z" class="f-red"/><rect x="40" y="28" width="6" height="5" class="f-sheet"/><circle cx="14" cy="42" r="5" class="f-ink s-ink"/><circle cx="42" cy="42" r="5" class="f-ink"/><line x1="10" y1="22" x2="10" y2="8" class="s-code" stroke-width="2.5" stroke-linecap="round"/><rect x="8" y="27" width="10" height="7" class="f-sheet"/></svg>
+          <b>Móvil</b><span>Equipo instalado en cada unidad de material mayor, conectado al vehículo y con antena en el techo.</span>
+        </div>
+        <div>
+          <svg viewBox="0 0 54 54" aria-hidden="true"><rect x="17" y="16" width="20" height="34" rx="3" class="f-code"/><line x1="22" y1="16" x2="22" y2="3" class="s-ink" stroke-width="3" stroke-linecap="round"/><rect x="21" y="21" width="12" height="7" rx="1" class="f-sheet"/><line x1="21" y1="34" x2="33" y2="34" stroke="#fff" stroke-width="1.5"/><line x1="21" y1="38" x2="33" y2="38" stroke="#fff" stroke-width="1.5"/><line x1="21" y1="42" x2="33" y2="42" stroke="#fff" stroke-width="1.5"/><rect x="13" y="24" width="4" height="9" rx="1" class="f-red"/></svg>
+          <b>Portátil</b><span>El equipo de mano (handy) de cada bombero u oficial. Funciona con batería y necesita cuidado especial.</span>
+        </div>
+      </div>
+      <p style="margin-top:14px">Cada pieza de material mayor lleva además un <strong>portátil de compañía</strong>, de uso exclusivo del teniente o bombero a cargo de la emergencia. Al usarlo no hace falta avisar a la Central que se transmite por él.</p>
+
+      <h3>Partes de una radio portátil</h3>
+      <figure class="fig-narrow">
+        <svg viewBox="0 0 400 330" role="img" aria-labelledby="f2t">
+          <title id="f2t">Radio portátil con sus partes: antena, selector de canales, perilla de encendido y volumen, botón PTT para hablar, parlante y micrófono.</title>
+          <rect x="150" y="30" width="11" height="70" rx="5" class="f-ink"/>
+          <rect x="182" y="78" width="16" height="22" rx="3" class="f-ink2"/>
+          <rect x="204" y="82" width="12" height="18" rx="3" class="f-ink2"/>
+          <rect x="140" y="98" width="88" height="200" rx="12" class="f-code"/>
+          <rect x="128" y="146" width="12" height="46" rx="4" class="f-red"/>
+          <rect x="154" y="114" width="60" height="30" rx="3" class="f-hover"/>
+          <text x="184" y="135" text-anchor="middle" class="t-big f-code">5-1</text>
+          <g stroke="#fff" stroke-width="2.4" stroke-linecap="round" opacity="0.8">
+            <line x1="158" y1="170" x2="210" y2="170"/><line x1="158" y1="182" x2="210" y2="182"/><line x1="158" y1="194" x2="210" y2="194"/>
+            <line x1="158" y1="206" x2="210" y2="206"/><line x1="158" y1="218" x2="210" y2="218"/><line x1="158" y1="230" x2="210" y2="230"/>
+          </g>
+          <circle cx="184" cy="266" r="5" fill="#fff" opacity="0.85"/>
+          <g class="s-ink3" stroke-width="1.3" fill="none">
+            <path d="M150 40 H96"/><path d="M190 80 V56 H232"/><path d="M216 91 H262"/>
+            <path d="M128 168 H90"/><path d="M212 200 H262"/><path d="M188 266 H262"/><path d="M214 136 H262" stroke-dasharray="3 3"/>
+          </g>
+          <text x="92" y="44" text-anchor="end" class="t-lb f-ink">Antena</text>
+          <text x="236" y="60" class="t-lb f-ink">Selector de canales</text>
+          <text x="266" y="95" class="t-lb f-ink">Encendido</text>
+          <text x="266" y="111" class="t-sm f-ink3">y volumen</text>
+          <text x="86" y="164" text-anchor="end" class="t-lb f-red">PTT</text>
+          <text x="86" y="180" text-anchor="end" class="t-sm f-ink3">pulsar para</text>
+          <text x="86" y="195" text-anchor="end" class="t-sm f-ink3">hablar</text>
+          <text x="266" y="140" class="t-lb f-ink">Pantalla</text>
+          <text x="266" y="204" class="t-lb f-ink">Parlante</text>
+          <text x="266" y="270" class="t-lb f-ink">Micrófono</text>
+        </svg>
+        <figcaption>Ilustración referencial: cada modelo es distinto. Lee el manual del fabricante del equipo de tu compañía.</figcaption>
+      </figure>
+
+      <h3>Cómo usarla</h3>
+      <div class="steps3">
+        <div><b>1. Encender</b><span>Gira la perilla (o el botón en algunos móviles). Desde ahí mismo ajustas el volumen.</span></div>
+        <div><b>2. Revisar la frecuencia</b><span>Mira el selector de canales o la pantalla y confirma que estás en la frecuencia correcta.</span></div>
+        <div><b>3. Transmitir</b><span>Acerca el equipo a la boca, presiona el PTT, habla y suelta al terminar.</span></div>
+      </div>
+      <ul style="margin-top:14px">
+        <li>Mantén la calma y piensa antes de hablar.</li>
+        <li>Habla pausado y sin gritar. El mensaje debe ser preciso y breve.</li>
+        <li>Si estás a cargo, di qué estás haciendo y qué necesitas.</li>
+        <li>Respeta el turno de las transmisiones y deja libres los canales.</li>
+      </ul>
+      <p style="margin-top:10px;font-size:14px;color:var(--ink-3)">Pasos y recomendaciones tomados del manual de la ANB, lección 4.</p>
+    </section>
+
+    <!-- 3 -->
+    <section class="lesson" id="l-llamar" data-t="Cómo llamar">
+      <div class="lh"><span class="ln">3</span><h2>Cómo llamar por radio<small>POE-C01, sección 5.7</small></h2></div>
+      <p>Primero se dice <strong>quién llama</strong> y luego <strong>a quién se llama</strong>. Después se espera que el otro conteste antes de entregar el mensaje: así se asegura que está escuchando.</p>
+      <div class="talk">
+        <p class="c"><span>Central</span><span>Central a BX-1</span></p>
+        <p><span>BX-1</span><span>BX-1 a Central</span></p>
+        <p class="c"><span>Central</span><span class="act">(entrega el mensaje)</span></p>
+      </div>
+      <p style="margin-top:14px">En sus primeros intentos de contacto, la Central repite dos veces el llamado: <span class="q">«Central a 2, Central a 2»</span>.</p>
+
+      <h3>Los números se dicen completos</h3>
+      <p>Las claves de oficiales y bomberos se dicen como un número entero.</p>
+      <div class="dd">
+        <div><span class="no">«cinco cero dos»</span><span class="si">«quinientos dos» (502)</span></div>
+        <div><span class="no">«dos seis cinco» o «dos sesenta y cinco»</span><span class="si">«doscientos sesenta y cinco» (265)</span></div>
+      </div>
+
+      <h3>Quién puede hablar por dónde</h3>
+      <ul>
+        <li>Nadie llama a la Central por <span class="k">5-1</span>, salvo para el despacho de una emergencia.</li>
+        <li>Cualquier bombero puede reportar una emergencia por la frecuencia nacional o por teléfono. Por radio, solo si está autorizado.</li>
+        <li>Los bomberos sin cargo que tienen equipo propio lo usan como <strong>receptor</strong>, aunque sea transceptor.</li>
+        <li>Los tenientes se comunican con la Central por <span class="k">5-2</span>, salvo en servicios o emergencias.</li>
+        <li>Oficiales generales, inspectores, directores y capitanes contestan por <span class="k">5-3</span>.</li>
+        <li>Toda comunicación desde el material mayor se hace por las radios digitales.</li>
+      </ul>
+      <div class="callout poe"><b>Silencio radial:</b> entre las 22:00 y las 07:45 no se transmite nada que no tenga relación con una emergencia, ni las puestas en servicio (<span class="k">0-9</span>) o fuera de servicio (<span class="k">0-8</span>). Una comunicación urgente en ese horario solo se pide en clave <span class="k">33</span>.</div>
+    </section>
+
+    <!-- 4 -->
+    <section class="lesson" id="l-frecuencias" data-t="Las frecuencias">
+      <div class="lh"><span class="ln">4</span><h2>Las frecuencias del Cuerpo<small>POE-C01, serie 5</small></h2></div>
+      <p>Cada frecuencia tiene un uso. Saber cuál corresponde evita saturar la frecuencia de despacho.</p>
+      <div class="freq">
+        <div class="main5"><b>5-1</b><em>Despacho</em><span>Exclusiva de la Central para despachar emergencias y el tráfico cotidiano. Aquí se da el 6-0.</span></div>
+        <div><b>5-2</b><em>Tráfico normal</em><span>Consultas de la Central a inspectores, ayudantes y oficiales de compañía. Puede ser frecuencia de trabajo.</span></div>
+        <div><b>5-3</b><em>Oficiales generales</em><span>Oficiales generales y Capitán de Guardia. Puede ser frecuencia de trabajo.</span></div>
+        <div><b>5-4</b><em>Alerce</em><span>Emergencias en el sector Alerce u otro que se disponga.</span></div>
+        <div><b>5-5 a 5-8</b><em>Sin repetidor</em><span>Frecuencias 1 a 4 sin repetidor.</span></div>
+        <div><b>5-9</b><em>Interna</em><span>Comunicación interna de cada compañía.</span></div>
+        <div><b>5-0</b><em>Nacional</em><span>Solo en emergencias donde participa más de un Cuerpo de Bomberos.</span></div>
+      </div>
+      <div class="callout poe"><b>En una emergencia</b> la comunicación con la Central va a través del CIC o del OBAC, y el trabajo en el lugar se hace por la frecuencia de trabajo que se establezca. Entre integrantes de una misma compañía se habla por la frecuencia interna, no por la de trabajo.</div>
+    </section>
+
+    <!-- 5 -->
+    <section class="lesson" id="l-despacho" data-t="Un despacho paso a paso">
+      <div class="lh"><span class="ln">5</span><h2>Un despacho paso a paso<small>Ejemplo de estudio armado con los ejemplos del POE-C01</small></h2></div>
+      <p>Según el manual de la ANB, toda llamada de emergencia sigue cuatro pasos: <strong>recepción, clasificación, despacho y retroalimentación</strong>. A continuación se ve cómo suenan esos pasos en la radio de Puerto Montt, en un rescate vehicular liviano (<span class="k">10-4-1</span>).</p>
+      <div class="disp" id="disp">
+        <div class="disp-top"><b>Rescate vehicular · 10-4-1</b><span id="dcount">1 / 9</span></div>
+        <div class="prog" id="dprog"></div>
+        <div class="disp-body" id="dbody" aria-live="polite"></div>
+        <div class="disp-nav">
+          <button class="btn" id="dprev" type="button">← Anterior</button>
+          <button class="btn pri" id="dnext" type="button">Siguiente →</button>
+          <button class="btn ghost" id="dall" type="button">Ver todo</button>
+        </div>
+      </div>
+      <p style="margin-top:12px;font-size:14px;color:var(--ink-3)">Las frases citadas son ejemplos del POE-C01. La secuencia los ordena para estudiar; el despacho real depende de la pauta de despacho y de la Central.</p>
+    </section>
+
+    <!-- 6 -->
+    <section class="lesson" id="l-conforme" data-t="El 6-0 y el preinforme">
+      <div class="lh"><span class="ln">6</span><h2>El 6-0 y el preinforme<small>Las dos transmisiones más importantes del OBAC</small></h2></div>
+      <h3>El 6-0, pieza por pieza</h3>
+      <p>Se da solo cuando la Central lo pide, por <span class="k">5-1</span>, y cuando el bombero a cargo ya sabe a qué va y dónde va.</p>
+      <div class="anat">
+        <span><b>R-4</b><small>Unidad despachada</small></span>
+        <span><b>conforme,</b><small>Recibió el despacho</small></span>
+        <span><b>402,</b><small>Clave del OBAC: Teniente 2° de la 4ª Compañía</small></span>
+        <span><b>6,</b><small>Total de bomberos, contando al OBAC y no al conductor</small></span>
+        <span><b>4 operadores</b><small>Personal especializado (rescate vehicular)</small></span>
+      </div>
+      <p style="margin-top:14px">Por radio suena así: <span class="q">«Erre cuatro conforme, cuatrocientos dos, seis, cuatro operadores»</span>.</p>
+      <ul style="margin-top:10px">
+        <li>Si va a cargo un bombero, dice su clave, luego su primer nombre y su primer apellido, en ese orden.</li>
+        <li>Si va a cargo un oficial, basta con su clave.</li>
+        <li>Si la máquina va solo con conductor: <span class="q">«B-10 6-1»</span>.</li>
+        <li>Si suben bomberos en el trayecto, se vuelve a dar el 6-0. Es el único caso en que se repite.</li>
+        <li>El conductor no puede salir al mando de la unidad, porque debe cumplir la tarea de maquinista. Si falta conductor, el OBAC indica <span class="k">12-10</span>.</li>
+      </ul>
+      <div class="dd">
+        <div><span class="no">«R-6 a cargo del Teniente Segundo más 6 Bomberos»</span><span class="si">«R-6 conforme, 602, 6»</span><small>Sobran «a cargo», «más… bomberos» y el cargo dicho en palabras. La segunda frase sigue el formato del ejemplo del POE.</small></div>
+      </div>
+
+      <h3>El preinforme</h3>
+      <p>Lo da el OBAC al llegar, por la <strong>frecuencia de trabajo</strong> de la emergencia. Antes del preinforme no se pueden dar instrucciones a las máquinas que aún no llegan. Debe contener tres cosas:</p>
+      <div class="anat">
+        <span><b>Quién lo entrega</b><small>«Preinforme del 10-0-2, a cargo 42…»</small></span>
+        <span><b>De qué se trata</b><small>«…se trata de fuego compartimental en fase de libre combustión en casa habitación de 1 piso…»</small></span>
+        <span><b>Recursos</b><small>«…con peligro de propagación» y, si hace falta, el material adicional o 12-6</small></span>
+      </div>
+      <div class="dd" style="margin-top:16px">
+        <div><span class="no">«Central 0-1, se confirma clave 10-2, se trataría de pastizales de mediana extensión, personal de 5ª compañía trabaja en el lugar, con la unidad en el lugar sería suficiente»</span><span class="si">«Preinforme del 10-2, a cargo 45, se trata de pastizales de mediana extensión que arden, se trabaja, 12-6»</span><small>Ejemplo del POE-C01. No se dice «se confirma clave»: se dice lo que sucede. Si el OBAC lo da mal, la Central lo retransmite en la forma correcta.</small></div>
+      </div>
+    </section>
+
+    <!-- 7 -->
+    <section class="lesson" id="l-escala" data-t="Cuando la emergencia crece">
+      <div class="lh"><span class="ln">7</span><h2>Cuando la emergencia crece<small>Cambio de clave, alarmas, CIC y mando</small></h2></div>
+      <h3>Cambio de clave</h3>
+      <p>Si al llegar la emergencia es distinta a la despachada, se informa a la Central: <span class="q">«Por orden de 605 cambie a clave 10-…»</span>. Si se despachó un <span class="k">10-8</span>, el OBAC debe reclasificarlo: <span class="q">«605 a Central, se trata de…»</span>. Si no necesita más material, indica <span class="k">12-6</span>; si no lo hace, la Central despacha la nueva clave en forma normal.</p>
+
+      <h3>Alarmas de incendio escalonadas</h3>
+      <p>El <span class="k">10-10</span> es la primera alarma de incendio que decreta el OBAC. Cada alarma siguiente suma material según la tabla de despacho. Si es forestal, el operador dice «10-10 Forestal».</p>
+      <div class="ladder"><span>10-10 · 1ª alarma</span><span>2ª alarma</span><span>3ª alarma</span><span>4ª alarma</span><span>5ª alarma</span><span>…</span></div>
+      <p style="margin-top:12px">Así se pide en el preinforme: <span class="q">«Preinforme del 10-0-2, a cargo de 168, se trata de fuego en fase de libre combustión en casa habitación de 2 pisos con peligro de propagación, proceda con 1ª alarma de incendio»</span>.</p>
+
+      <h3>CIC: Centro de Información y Comunicaciones</h3>
+      <p>Se establece en todos los incendios desde la primera alarma, y en emergencias con mucho tráfico radial. Coordina las comunicaciones entre el OBAC y la Central para descongestionar la radio. Funciona en el carro de comando y comunicaciones (<span class="k">X-1</span>) o en otro vehículo con radio, cerca del puesto de mando.</p>
+      <div class="talk">
+        <p><span>OBAC</span><span>1 a Central, se establece CIC a cargo de 18, frecuencia de trabajo 5-2, comunicaciones con Central 5-1</span></p>
+      </div>
+
+      <h3>Traspaso del mando</h3>
+      <p>Lo comunica el OBAC saliente por la frecuencia de trabajo. Conviene evitar muchos traspasos en emergencias simples.</p>
+      <div class="talk">
+        <p><span>OBAC</span><span>48 a Central</span></p>
+        <p class="c"><span>Central</span><span>Central a 48</span></p>
+        <p><span>OBAC</span><span>Asume el mando de la emergencia 2</span></p>
+      </div>
+
+      <div class="callout warn"><b>7-8: detenga el trabajo y evacúe la estructura de inmediato.</b> Los OBAC de cada compañía comunican la orden a todo su personal e informan su condición al OBAC de la emergencia. La Central o el CIC la transmite así: <span class="q">«Por orden de (clave) 7-8»</span>.</div>
+    </section>
+
+    <!-- 8 -->
+    <section class="lesson" id="l-mayday" data-t="MAYDAY">
+      <div class="lh"><span class="ln">8</span><h2>MAYDAY<small>Material de estudio de la ANB, lección 5</small></h2></div>
+      <div class="callout poe" style="margin-top:0"><b>Ojo:</b> el POE-C01 no incluye un procedimiento de MAYDAY. Esta lección resume el manual de la ANB como material de estudio. En servicio, sigue el procedimiento que establezca tu Cuerpo y las órdenes del mando.</div>
+      <p style="margin-top:14px">MAYDAY viene del francés <em>m'aider</em>, «ayúdenme». Quien escuche <span class="q">«MAYDAY, MAYDAY, MAYDAY»</span> debe entender que hay una vida en peligro y se necesita ayuda inmediata.</p>
+      <h3>Cuándo activarlo</h3>
+      <ul>
+        <li>Colapso o caída de algo sobre el bombero.</li>
+        <li>Perdido o desorientado.</li>
+        <li>Atrapado o atascado.</li>
+        <li>Caída, sin importar la causa.</li>
+        <li>Suena la alarma de término del cilindro de aire y no encuentras la salida o estás muy lejos de ella.</li>
+        <li>Un bombero no se reporta en el puesto de control y supera la duración de su equipo de respiración.</li>
+      </ul>
+      <p style="margin-top:8px">También se considera ante un bombero caído, un problema médico (dolor en el pecho, dificultad para respirar) o cualquier dificultad que no se resuelva en <strong>30 segundos</strong>. Si se soluciona, el MAYDAY siempre se puede cancelar.</p>
+
+      <h3>Qué decir</h3>
+      <div class="acr">
+        <div><h4>LIP</h4><dl><dt>L</dt><dd>Localización: dónde estás.</dd><dt>I</dt><dd>Identificación: quién eres y tu compañía.</dd><dt>P</dt><dd>Problema: atrapado, perdido, caída, falta de aire, problema médico.</dd></dl></div>
+        <div><h4>LUNAR</h4><dl><dt>L</dt><dd>Lugar donde estás.</dd><dt>U</dt><dd>Unidad asignada.</dd><dt>N</dt><dd>Nombre.</dd><dt>A</dt><dd>Asignación: la tarea que cumplías.</dd><dt>R</dt><dd>Recursos que tienes: aire, herramientas.</dd></dl></div>
+      </div>
+      <p style="margin-top:10px">No es obligatorio seguir las siglas al pie de la letra: lo esencial es entregar toda la información relevante, en forma clara.</p>
+
+      <h3>Qué hacer</h3>
+      <ul>
+        <li>Transmitir por la frecuencia principal o, si no es posible, por la que tenga el portátil en ese momento.</li>
+        <li>Activar el dispositivo PASS (alarma de bombero caído).</li>
+        <li>Cuidar la reserva de aire y, si es posible, buscar una pared o ventana.</li>
+        <li>Encender la linterna apuntando al techo de forma intermitente.</li>
+      </ul>
+      <h3>Qué pasa en la radio</h3>
+      <ol class="steps">
+        <li>Se declara el MAYDAY.</li>
+        <li>Cesa todo tráfico radial que no tenga relación con él: el puesto de mando o la Central usa la clave <span class="k">0-0</span>.</li>
+        <li>La Central o el puesto de mando anuncia los detalles.</li>
+        <li>Todos los equipos de trabajo se detienen para escuchar.</li>
+        <li>Se despliega el equipo de intervención rápida (RIT) o el procedimiento del Cuerpo.</li>
+        <li>Se declara el fin del MAYDAY y se reanudan las actividades.</li>
+      </ol>
+    </section>
+
+    <!-- 9 -->
+    <section class="lesson" id="l-errores" data-t="Errores frecuentes">
+      <div class="lh"><span class="ln">9</span><h2>Errores frecuentes<small>Lo que el POE-C01 pide evitar</small></h2></div>
+      <p>La clave ya dice lo que se necesita. Agregar palabras alarga la transmisión y ocupa la frecuencia.</p>
+      <div class="dd">
+        <div><span class="no">«¿Cuál es su 0-5?»</span><span class="si">«0-5»</span></div>
+        <div><span class="no">«Realice 3-0» o «haga un 3-0»</span><span class="si">«3-0»</span></div>
+        <div><span class="no">«6-6 al lugar» o «solicite 6-6»</span><span class="si">«6-6»</span></div>
+        <div><span class="no">«Situación 6-7», «paciente entregado a Samu, 6-7»</span><span class="si">«6-7 del 10-4-1»</span></div>
+        <div><span class="no">«12-10 para B-1»</span><span class="si">«12-10 B-1»</span></div>
+        <div><span class="no">«6-9 para alguna máquina» (dicho por el OBAC)</span><span class="si">La máquina dice su 6-9 al retirarse</span></div>
+        <div><span class="no">«2-0, B-3»</span><span class="si">«2-0»</span><small>La Central elige la unidad según la pauta. Para pedir una específica se usa 2-6: «2-6 B-6».</small></div>
+      </div>
+      <h3>Frases que sobran</h3>
+      <p>El POE pide omitir de todo tráfico radial expresiones como: «buenas tardes», «buenos días», «mi comandante», «mi teniente», «agradecido», «se agradece», «si fuera tan amable», «QTH», «atento», «tomando nota», «se toman datos», «se recoge material».</p>
+    </section>
+
+    <!-- 10 -->
+    <section class="lesson" id="l-prueba" data-t="Ponte a prueba">
+      <div class="lh"><span class="ln">10</span><h2>Ponte a prueba<small>10 preguntas al azar con las claves del POE-C01</small></h2></div>
+      <p>Elige un modo y responde. Al final verás tu nota en escala de 1,0 a 7,0, con 60 % de exigencia.</p>
+      <div class="quiz" id="quiz">
+        <div class="qmodes" role="group" aria-label="Modo de práctica">
+          <button class="btn" type="button" data-mode="code" aria-pressed="true">Veo la clave</button>
+          <button class="btn" type="button" data-mode="desc" aria-pressed="false">Veo el significado</button>
+        </div>
+        <div id="qarea"></div>
+      </div>
+    </section>
+
+    <!-- 11 -->
+    <section class="lesson" id="l-anb" data-t="POE y tabla nacional">
+      <div class="lh"><span class="ln">11</span><h2>POE y tabla nacional<small>No las confundas</small></h2></div>
+      <p>El manual de la ANB incluye una tabla de claves que surgió del proceso de estandarización nacional impulsado por la Junta Nacional de Cuerpos de Bomberos entre 2009 y 2010. Varias claves de esa tabla <strong>no coinciden</strong> con las del POE-C01. En Puerto Montt se usan las del POE.</p>
+      <div class="tblw">
+        <table class="cmp">
+          <thead><tr><th>Clave</th><th>POE-C01 (Puerto Montt)</th><th>Tabla de la ANB</th></tr></thead>
+          <tbody>
+            <tr><td>10-10</td><td>Incendio declarado (1ª alarma)</td><td>Llamado a escombros</td></tr>
+            <tr><td>10-14</td><td>Simulacro</td><td>Llamado a accidente de aviación</td></tr>
+            <tr><td>12-0</td><td>No existe</td><td>Diríjase al lugar sin alarma</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top:12px">Son solo algunos ejemplos. Ante cualquier duda, consulta la <a href="./" style="color:var(--code);font-weight:600">cartilla del POE-C01</a>.</p>
+    </section>
+
+    <footer class="foot">
+      <img src="img/logo.png" alt="" width="40" height="40">
+      <div><b>Fuentes</b><br>Cuerpo de Bomberos de Puerto Montt (2020). <i>Manual de Comunicaciones del Cuerpo de Bomberos de Puerto Montt</i> (POE-C01, versión 1.0). Norma oficial.<br>Academia Nacional de Bomberos de Chile (2019). <i>Comunicaciones para Bomberos: manual del participante</i> (1ª ed.). ISBN 978-956-9682-51-3. Material de estudio, citado y resumido; no se reproducen sus imágenes.</div>
+    </footer>
+  </main>
+</div>
+
+<div class="toast" id="ts" role="status" aria-live="polite"></div>
+
+<script src="js/claves.js"></script>
+<script src="js/comun.js"></script>
+<script>
+(function(){
+  var C = window.CBPM, esc = window.CBPMUI.esc;
+
+  // ===== ÍNDICE DE LECCIONES =====
+  var lessons = document.querySelectorAll(".lesson");
+  var tocHTML = "", i;
+  for (i = 0; i < lessons.length; i++) {
+    tocHTML += '<li><a href="#' + lessons[i].id + '" data-id="' + lessons[i].id + '"><b>' + (i + 1) + "</b>" + esc(lessons[i].getAttribute("data-t")) + "</a></li>";
+  }
+  document.getElementById("toc").innerHTML = "<h3>Lecciones</h3><ol style=\"list-style:none\">" + tocHTML + "</ol>";
+  document.getElementById("mtoc").innerHTML = "<h3>Lecciones</h3><ol>" + tocHTML + "</ol>";
+
+  var tocLinks = document.querySelectorAll("#toc a");
+  var ticking = false;
+  function spy() {
+    var cur = lessons[0].id;
+    for (var j = 0; j < lessons.length; j++) {
+      if (lessons[j].getBoundingClientRect().top - 120 <= 0) cur = lessons[j].id;
+    }
+    for (var k = 0; k < tocLinks.length; k++) {
+      tocLinks[k].className = tocLinks[k].getAttribute("data-id") === cur ? "on" : "";
+    }
+  }
+  window.addEventListener("scroll", function() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function() { ticking = false; spy(); });
+  }, { passive: true });
+  spy();
+
+  // ===== DESPACHO PASO A PASO =====
+  // Cada paso usa frases de ejemplo del POE-C01 (secciones 5.6, 5.10 y 5.7).
+  var steps = [
+    { t: "La Central recibe la llamada", f: "Teléfono",
+      lines: [["act", "Un vecino llama: un auto chocó contra un árbol y hay personas lesionadas."]],
+      why: "Recepción y clasificación. La Central reúne la información y elige la clave del servicio: rescate vehicular liviano, 10-4-1. Despacha el material según la pauta de despacho." },
+    { t: "Se pide el 6-0", f: "5-1",
+      lines: [["c", "Central", "6-0 R-4"], ["m", "R-4", "R-4 conforme, 402, 6, 4 operadores"]],
+      why: "La Central consulta los 6-0 empezando por la máquina más cercana. R-4 va a cargo del 402 (Teniente 2° de la 4ª), con 6 bomberos, de los cuales 4 son operadores de rescate vehicular." },
+    { t: "Dirección y de qué se trata", f: "5-1",
+      lines: [["c", "Central", "6-2, Avenida Colón 983, entre Los Álamos y Los Ulmos"], ["c", "Central", "0-4, choque de vehículo menor contra árbol, 2 personas lesionadas al interior, una de ellas atrapada"]],
+      why: "Conocido el 6-0 de cada máquina, la Central informa el 6-2 (dirección exacta) y el 0-4 (de qué se trata). Si no responde una máquina tras dos intentos, despacha la siguiente." },
+    { t: "Llegada al lugar", f: "5-1",
+      lines: [["m", "R-4", "R-4 a Central"], ["c", "Central", "Central a R-4"], ["m", "R-4", "R-4, 6-3"]],
+      why: "La primera máquina que llega informa su 6-3 y se asegura de que la Central lo escuchó. Si la ubicación real no coincide, lo informa." },
+    { t: "Preinforme", f: "Frecuencia de trabajo",
+      lines: [["m", "Portátil R-4", "Preinforme del 10-4-1, a cargo 402, se trata de choque de vehículo menor contra árbol, dos personas lesionadas, una atrapada, 12-6"]],
+      why: "El preinforme dice quién lo entrega, de qué se trata y si hacen falta recursos. Aquí el OBAC indica 12-6: el material en el lugar es suficiente. La Central luego retransmite el preinforme. Frase armada con la estructura que pide el POE." },
+    { t: "Situación controlada", f: "Frecuencia de trabajo",
+      lines: [["m", "Portátil R-4", "6-7 del 10-4-1"]],
+      why: "En accidentes, el 6-7 se da cuando los pacientes fueron rescatados, liberados o están con la ambulancia. Sin agregar «se dejan recomendaciones» ni «se recoge material»." },
+    { t: "Retirada", f: "5-1",
+      lines: [["m", "R-4", "R-4, 6-9"]],
+      why: "La máquina informa su 6-9 al retirarse del lugar, en lo posible con el estanque lleno." },
+    { t: "Disponible", f: "5-1",
+      lines: [["m", "R-4", "R-4, 6-8"]],
+      why: "6-8 significa que la unidad puede responder a cualquier emergencia. Un carro bomba no puede darlo si su estanque no tiene capacidad óptima de agua." },
+    { t: "Llegada al cuartel", f: "Teléfono",
+      lines: [["act", "El conductor llama por teléfono a la Central para informar el 6-10."]],
+      why: "El 6-10 se informa por teléfono, no por radio. La Central registra la hora de llegada y la radio de la máquina queda en 5-1 digital." }
+  ];
+
+  var cur = 0, showAll = false;
+  var dbody = document.getElementById("dbody"), dprog = document.getElementById("dprog");
+  var dcount = document.getElementById("dcount"), dprev = document.getElementById("dprev");
+  var dnext = document.getElementById("dnext"), dall = document.getElementById("dall");
+
+  function stepHTML(s, n) {
+    var h = "<h4>" + (n + 1) + ". " + esc(s.t) + '</h4><span class="freqtag">' + esc(s.f) + '</span><div class="talk">';
+    for (var j = 0; j < s.lines.length; j++) {
+      var l = s.lines[j];
+      if (l[0] === "act") h += '<p><span></span><span class="act">' + esc(l[1]) + "</span></p>";
+      else h += '<p class="' + (l[0] === "c" ? "c" : "") + '"><span>' + esc(l[1]) + "</span><span>" + esc(l[2]) + "</span></p>";
+    }
+    return h + '</div><div class="why">' + esc(s.why) + "</div>";
+  }
+  function renderDisp() {
+    var p = "";
+    for (var j = 0; j < steps.length; j++) p += "<i" + (showAll || j <= cur ? ' class="on"' : "") + "></i>";
+    dprog.innerHTML = p;
+    if (showAll) {
+      var all = "";
+      for (var k = 0; k < steps.length; k++) all += '<div style="margin-bottom:22px">' + stepHTML(steps[k], k) + "</div>";
+      dbody.innerHTML = all;
+      dcount.textContent = steps.length + " pasos";
+      dprev.hidden = true; dnext.hidden = true;
+      dall.textContent = "Paso a paso";
+    } else {
+      dbody.innerHTML = stepHTML(steps[cur], cur);
+      dcount.textContent = (cur + 1) + " / " + steps.length;
+      dprev.hidden = false; dnext.hidden = false;
+      dprev.disabled = cur === 0;
+      dnext.textContent = cur === steps.length - 1 ? "Volver a empezar" : "Siguiente →";
+      dall.textContent = "Ver todo";
+    }
+  }
+  dprev.addEventListener("click", function() { if (cur > 0) { cur--; renderDisp(); } });
+  dnext.addEventListener("click", function() { cur = cur === steps.length - 1 ? 0 : cur + 1; renderDisp(); });
+  dall.addEventListener("click", function() { showAll = !showAll; renderDisp(); });
+  renderDisp();
+
+  // ===== AUTOEVALUACIÓN =====
+  var pool = [];
+  for (i = 0; i < C.cats.length; i++) {
+    for (var j = 0; j < C.cats[i].ds.length; j++) pool.push({ code: C.cats[i].ds[j][0], desc: C.cats[i].ds[j][1], cat: C.cats[i].id });
+  }
+  var qarea = document.getElementById("qarea");
+  var mode = "code", qs = [], qi = 0, score = 0, N = 10;
+
+  function shuffle(a) {
+    for (var x = a.length - 1; x > 0; x--) { var y = Math.floor(Math.random() * (x + 1)); var t = a[x]; a[x] = a[y]; a[y] = t; }
+    return a;
+  }
+  function makeQuiz() {
+    var picks = shuffle(pool.slice()).slice(0, N);
+    qs = [];
+    for (var a = 0; a < picks.length; a++) {
+      var right = picks[a];
+      var same = shuffle(pool.filter(function(p) { return p.cat === right.cat && p.code !== right.code; }));
+      var other = shuffle(pool.filter(function(p) { return p.cat !== right.cat; }));
+      var wrong = same.slice(0, 2).concat(other).slice(0, 3);
+      qs.push({ right: right, opts: shuffle([right].concat(wrong)) });
+    }
+    qi = 0; score = 0;
+    renderQ();
+  }
+  function nota(p) {
+    var n = p < 0.6 ? 1 + 3 * (p / 0.6) : 4 + 3 * ((p - 0.6) / 0.4);
+    return (Math.round(n * 10) / 10).toFixed(1).replace(".", ",");
+  }
+  function renderQ() {
+    if (qi >= qs.length) {
+      var n = nota(score / qs.length);
+      qarea.innerHTML = '<div class="qres"><div class="score">' + score + " / " + qs.length + '</div><div class="grade">Nota ' + n + "</div><p>Escala de 1,0 a 7,0 con 60 % de exigencia: el 4,0 se alcanza con 6 respuestas correctas.</p></div>" +
+        '<div style="text-align:center;margin-top:14px"><button class="btn pri" id="qagain" type="button">Otra ronda</button></div>';
+      document.getElementById("qagain").addEventListener("click", makeQuiz);
+      return;
+    }
+    var q = qs[qi];
+    var h = '<div class="qstat">Pregunta ' + (qi + 1) + " de " + qs.length + " · " + score + " correctas</div>";
+    h += '<div class="qprompt">' + (mode === "code"
+      ? '<div class="big">' + esc(q.right.code) + '</div><div class="qstat" style="margin-top:6px">¿Qué significa esta clave?</div>'
+      : '<div class="txt">' + esc(q.right.desc) + '</div><div class="qstat" style="margin-top:6px">¿Cuál es la clave?</div>') + "</div>";
+    h += '<div class="qopts">';
+    for (var a = 0; a < q.opts.length; a++) {
+      var o = q.opts[a];
+      h += '<button type="button" class="qopt" data-i="' + a + '">' + (mode === "code" ? esc(o.desc) : '<span class="k">' + esc(o.code) + "</span>") + "</button>";
+    }
+    h += '</div><div class="qfeed" id="qfeed"></div>';
+    qarea.innerHTML = h;
+  }
+  qarea.addEventListener("click", function(e) {
+    var b = e.target.closest(".qopt");
+    if (!b || b.disabled) return;
+    var q = qs[qi], pick = q.opts[+b.getAttribute("data-i")];
+    var btns = qarea.querySelectorAll(".qopt");
+    for (var a = 0; a < btns.length; a++) {
+      btns[a].disabled = true;
+      if (q.opts[a].code === q.right.code) btns[a].className = "qopt good";
+    }
+    var ok = pick.code === q.right.code;
+    if (ok) score++; else b.className = "qopt bad";
+    var uso = C.usos[q.right.code];
+    document.getElementById("qfeed").innerHTML = (ok ? "<b>Correcto.</b> " : "<b>Era " + esc(q.right.code) + ":</b> " + esc(q.right.desc) + ". ") +
+      (uso ? esc(uso) + " " : "") + '<div style="margin-top:12px"><button class="btn pri" id="qnext" type="button">' + (qi === qs.length - 1 ? "Ver resultado" : "Siguiente →") + "</button></div>";
+    document.getElementById("qnext").addEventListener("click", function() { qi++; renderQ(); });
+  });
+  var modeBtns = document.querySelectorAll(".qmodes .btn");
+  for (i = 0; i < modeBtns.length; i++) {
+    modeBtns[i].addEventListener("click", function() {
+      mode = this.getAttribute("data-mode");
+      for (var a = 0; a < modeBtns.length; a++) modeBtns[a].setAttribute("aria-pressed", modeBtns[a] === this ? "true" : "false");
+      makeQuiz();
+    });
+  }
+  makeQuiz();
+})();
+</script>
+</body>
+</html>
