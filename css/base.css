@@ -1,0 +1,159 @@
+/* Estilos compartidos: identidad del Cuerpo de Bomberos de Puerto Montt.
+   Azul y rojo del escudo, dorado de los laureles, hoja blanca. */
+:root {
+  --bg: #ECEEF4;
+  --sheet: #FFFFFF;
+  --ink: #0B1238;
+  --ink-2: #394066;
+  --ink-3: #5C6286;
+  --rule: #DCDFE8;
+  --rule-2: #B9BED0;
+  --hover: #F3F5FA;
+  --code: #0A1472;
+  --head: #0A1472;
+  --red: #D3141C;
+  --red-soft: #FCE8E9;
+  --gold: #E8B20C;
+  --gold-soft: #FFF6D6;
+  --ok: #157A3C;
+  --ok-soft: #E3F4E9;
+  --mark: #FFE27A;
+  --toast-bg: #0B1238;
+  --toast-fg: #FFFFFF;
+  --display: "Barlow Condensed", "Roboto Condensed", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --text: "Barlow", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  --ico-sun: none;
+  --ico-moon: block;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #060A22;
+    --sheet: #0C1333;
+    --ink: #EEF0F8;
+    --ink-2: #C4C8DE;
+    --ink-3: #959CBD;
+    --rule: #1E2753;
+    --rule-2: #36407A;
+    --hover: #111A42;
+    --code: #B7C4FF;
+    --head: #0A1160;
+    --red: #FF4B50;
+    --red-soft: #3A1020;
+    --gold: #F2C230;
+    --gold-soft: #2E2810;
+    --ok: #5BD68A;
+    --ok-soft: #0E2E22;
+    --mark: rgba(242,194,48,0.40);
+    --toast-bg: #EEF0F8;
+    --toast-fg: #0B1238;
+    --ico-sun: block;
+    --ico-moon: none;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #060A22;
+  --sheet: #0C1333;
+  --ink: #EEF0F8;
+  --ink-2: #C4C8DE;
+  --ink-3: #959CBD;
+  --rule: #1E2753;
+  --rule-2: #36407A;
+  --hover: #111A42;
+  --code: #B7C4FF;
+  --head: #0A1160;
+  --red: #FF4B50;
+  --red-soft: #3A1020;
+  --gold: #F2C230;
+  --gold-soft: #2E2810;
+  --ok: #5BD68A;
+  --ok-soft: #0E2E22;
+  --mark: rgba(242,194,48,0.40);
+  --toast-bg: #EEF0F8;
+  --toast-fg: #0B1238;
+  --ico-sun: block;
+  --ico-moon: none;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body { font-family: var(--text); background: var(--bg); color: var(--ink); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+button { font-family: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+[hidden] { display: none !important; }
+
+.wrap {
+  width: 100%; max-width: 1120px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+
+/* ===== Cabecera institucional ===== */
+.top {
+  background: var(--head); color: #fff;
+  padding-top: env(safe-area-inset-top, 0px);
+  border-bottom: 6px solid var(--red);
+}
+.top-row { display: flex; align-items: center; gap: 16px; padding-top: 18px; padding-bottom: 14px; }
+.logo { width: 68px; height: 68px; flex-shrink: 0; display: block; }
+.ttl { flex: 1; min-width: 0; }
+.ttl .org {
+  font-family: var(--display); font-weight: 700; font-size: 13px; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--gold); line-height: 1.2;
+}
+.ttl h1 {
+  font-family: var(--display); font-weight: 800; text-transform: uppercase;
+  font-size: clamp(30px, 8vw, 52px); line-height: 0.95; letter-spacing: 0.01em; margin-top: 4px;
+}
+.ttl .ref { font-size: 13px; color: rgba(255,255,255,0.75); margin-top: 6px; font-variant-numeric: tabular-nums; }
+.tbtn {
+  width: 40px; height: 40px; flex-shrink: 0; align-self: flex-start; cursor: pointer;
+  border: 1.5px solid rgba(255,255,255,0.35); border-radius: 6px; background: transparent; color: #fff;
+  display: flex; align-items: center; justify-content: center;
+}
+.tbtn:hover { background: rgba(255,255,255,0.10); }
+.tbtn .sun { display: var(--ico-sun); }
+.tbtn .moon { display: var(--ico-moon); }
+
+/* Navegación entre páginas */
+.pnav { display: flex; gap: 4px; }
+.pnav a {
+  font-family: var(--display); font-weight: 700; font-size: 16px; letter-spacing: 0.06em; text-transform: uppercase;
+  color: rgba(255,255,255,0.72); text-decoration: none; padding: 10px 14px 9px;
+  border-bottom: 4px solid transparent; display: flex; align-items: center; gap: 8px;
+}
+.pnav a:hover { color: #fff; }
+.pnav a[aria-current="page"] { color: #fff; border-bottom-color: var(--gold); }
+
+/* Aviso breve */
+.toast {
+  position: fixed; left: 50%; bottom: calc(22px + env(safe-area-inset-bottom, 0px)); z-index: 90;
+  transform: translate(-50%, 16px); opacity: 0; pointer-events: none; max-width: calc(100% - 32px);
+  background: var(--toast-bg); color: var(--toast-fg); padding: 11px 16px; border-radius: 6px;
+  font-size: 15px; font-weight: 500; transition: opacity 0.18s, transform 0.18s;
+}
+.toast.on { opacity: 1; transform: translate(-50%, 0); }
+.toast b { font-family: var(--display); font-weight: 700; font-size: 17px; }
+
+mark { background: var(--mark); color: inherit; border-radius: 2px; padding: 0 1px; }
+
+.foot { display: flex; align-items: center; gap: 12px; margin-top: 26px; color: var(--ink-3); font-size: 13px; line-height: 1.45; }
+.foot img { width: 40px; height: 40px; flex-shrink: 0; }
+.foot b { color: var(--ink-2); font-weight: 600; }
+
+@media (min-width: 980px) {
+  .top-row { padding-top: 26px; gap: 20px; }
+  .logo { width: 88px; height: 88px; }
+}
+@media (max-width: 420px) {
+  .logo { width: 56px; height: 56px; }
+  .top-row { gap: 12px; }
+  .ttl .org { font-size: 11px; }
+  .pnav a { padding-left: 10px; padding-right: 10px; font-size: 15px; }
+}
+@media (prefers-reduced-motion: reduce) { .toast { transition: none; } }
+@media print {
+  .tbtn, .pnav, .toast { display: none !important; }
+}
