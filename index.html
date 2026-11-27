@@ -76,7 +76,7 @@
   .note b { color: var(--ink); }
   .note button { margin-left: auto; flex-shrink: 0; width: 32px; height: 32px; border: none; border-radius: 4px; background: var(--hover); color: var(--ink-2); cursor: pointer; font-size: 15px; }
   .learn {
-    display: flex; align-items: center; gap: 14px; margin-bottom: 16px; padding: 14px 16px; text-decoration: none;
+    display: flex; align-items: center; gap: 14px; margin-bottom: 16px; padding: 12px 16px; text-decoration: none;
     background: var(--gold-soft); border: 1px solid var(--gold); border-radius: 6px; color: var(--ink);
   }
   .learn b { font-family: var(--display); font-size: 19px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em; display: block; }
@@ -135,6 +135,41 @@
   .rows.grid3 .item { border-bottom: 1px solid var(--rule); }
   .rows.grid3 .row { grid-template-columns: 64px 1fr; }
 
+  /* Tablero de tipos de servicio (serie 10): lo más consultado, primero */
+  .qk { background: var(--sheet); border: 1px solid var(--rule); border-radius: 4px; padding: 18px 16px 16px; margin-bottom: 16px; }
+  .qk-h { display: flex; align-items: flex-end; gap: 12px; padding-bottom: 10px; border-bottom: 2px solid var(--ink); }
+  .qk-h h2 { font-family: var(--display); font-weight: 700; font-size: 24px; line-height: 1; text-transform: uppercase; letter-spacing: 0.02em; flex: 1; min-width: 0; }
+  .qk-sub { font-size: 14px; color: var(--ink-3); line-height: 1.4; margin: 10px 0 12px; }
+  .qk-h .tag { align-self: center; font-family: var(--display); font-weight: 700; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--head); background: var(--gold); padding: 3px 8px; border-radius: 3px; white-space: nowrap; }
+  .qk-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 150px), 1fr)); gap: 8px; }
+  .qk-t {
+    display: flex; flex-direction: column; align-items: flex-start; gap: 3px; text-align: left; cursor: pointer;
+    padding: 10px 12px 11px; min-height: 84px; border: 1.5px solid var(--rule-2); border-radius: 4px; background: var(--sheet);
+    border-bottom-width: 4px; transition: border-color 0.15s, background 0.15s;
+  }
+  .qk-t:hover { border-color: var(--code); }
+  .qk-t b { font-family: var(--display); font-weight: 800; font-size: 26px; line-height: 1; color: var(--code); font-variant-numeric: tabular-nums; }
+  .qk-t span { font-size: 14px; line-height: 1.3; color: var(--ink); font-weight: 500; }
+  .qk-t small { font-size: 12px; color: var(--ink-3); margin-top: auto; padding-top: 2px; }
+  .qk-t.on { background: var(--head); border-color: var(--head); border-bottom-color: var(--red); }
+  .qk-t.on b { color: var(--gold); }
+  .qk-t.on span { color: #fff; }
+  .qk-t.on small { color: rgba(255,255,255,0.7); }
+  .qk-p { grid-column: 1 / -1; border: 2px solid var(--head); border-top: 6px solid var(--red); border-radius: 4px; background: var(--sheet); padding: 14px 14px 8px; }
+  .qk-ph { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 4px 12px; }
+  .qk-ph > div { display: contents; }
+  .qk-ph b { font-family: var(--display); font-weight: 800; font-size: 34px; line-height: 0.95; color: var(--red); white-space: nowrap; }
+  .qk-ph h3 { font-family: var(--display); font-weight: 700; font-size: 22px; line-height: 1.05; text-transform: uppercase; grid-column: 2; grid-row: 1; }
+  .qk-ph p { font-size: 15px; line-height: 1.5; color: var(--ink-2); margin-top: 6px; max-width: 62ch; grid-column: 1 / -1; }
+  .qk-ph .acts { grid-column: 1 / -1; }
+  .qk-ph .x { grid-column: 3; grid-row: 1; height: 34px; padding: 0 12px; border: 1.5px solid var(--rule-2); border-radius: 4px; background: var(--sheet); font-size: 14px; font-weight: 600; cursor: pointer; }
+  .qk-ph .acts { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+  .qk-ph .acts button { padding: 7px 12px; border: 1.5px solid var(--rule-2); border-radius: 4px; background: var(--sheet); font-size: 14px; font-weight: 600; cursor: pointer; }
+  .qk-ph .acts button:hover, .qk-ph .x:hover { border-color: var(--code); }
+  .qk-p .rows { margin-top: 10px; border-top: 1px solid var(--rule); }
+  .qk-p .item.sub .row { padding-left: 6px; }
+  .qk-p .item.sub .det { padding-left: 102px; }
+
   .empty { padding: 48px 18px; text-align: center; }
   .empty p { font-size: 17px; font-weight: 600; }
   .empty p + p { font-size: 14px; font-weight: 400; color: var(--ink-3); margin-top: 4px; }
@@ -155,6 +190,7 @@
     .side a.on { color: var(--ink); border-left-color: var(--red); background: var(--sheet); font-weight: 600; }
     .side a.dim { opacity: 0.4; }
     .sec { padding: 26px 26px 12px; }
+    .qk { padding: 24px 26px 22px; }
     .row { grid-template-columns: 96px 1fr 22px; }
     .det { padding-left: 114px; }
     .item.sub .det { padding-left: 130px; }
@@ -165,6 +201,15 @@
     .item.sub .row { padding-left: 14px; }
     .det, .item.sub .det { padding-left: 6px; }
     .sec { padding-left: 12px; padding-right: 12px; }
+    .qk { padding-left: 12px; padding-right: 12px; }
+    .qk-t { min-height: 78px; padding: 9px 10px 10px; }
+    .qk-t b { font-size: 24px; }
+    .qk-t span { font-size: 13.5px; }
+    .qk-p { padding-left: 10px; padding-right: 10px; }
+    .qk-p .item.sub .det { padding-left: 6px; }
+    .qk-ph b { font-size: 28px; }
+    .qk-ph h3 { font-size: 19px; }
+    .qk-h h2 { font-size: 21px; }
   }
   @media print {
     :root { --bg: #fff; --sheet: #fff; --ink: #000; --ink-2: #222; --ink-3: #444; --rule: #ccc; --code: #0A1472; }
@@ -220,6 +265,7 @@
       <span id="it"></span>
       <button id="ic" type="button" aria-label="Cerrar aviso">✕</button>
     </div>
+    <section class="qk" id="s-quick" aria-labelledby="qk-t"></section>
     <a class="learn" href="aprende.html" id="lk">
       <div><b>¿Recién empiezas con la radio?</b><span>Aprende cómo se usan las claves en un despacho, paso a paso.</span></div>
       <i aria-hidden="true">→</i>
@@ -302,13 +348,25 @@
   for (var k0 = 0; k0 < cuart.length; k0++) qItems.push([cuart[k0][0], "Cuartel " + cuart[k0][1]]);
   sections.push({ id: "cuarteles", sn: "R", lb: "Cuarteles", items: qItems, kind: "grid3" });
 
+  // Familias de la serie 10: cada clave principal con sus subtipos
+  var families = [];
+  for (var fc = 0; fc < cats.length; fc++) {
+    if (cats[fc].id !== "servicios") continue;
+    for (var fd = 0; fd < cats[fc].ds.length; fd++) {
+      var d = cats[fc].ds[fd];
+      if (!isSub(d[0]) || !families.length) families.push({ code: d[0], desc: d[1], subs: [] });
+      else families[families.length - 1].subs.push(d);
+    }
+  }
+
   var totalCodes = 0;
   for (var tc = 0; tc < cats.length; tc++) totalCodes += cats[tc].ds.length;
   document.getElementById("ref").textContent = "Cartilla POE-C01 · " + totalCodes + " claves · " + cuart.length + " cuarteles";
 
   // ===== ÍNDICES =====
   (function buildNav() {
-    var t = "", s = "<h3>Series</h3>";
+    var t = '<button type="button" class="tab" data-id="quick"><b>10</b>Tipo de servicio</button>';
+    var s = '<h3>Acceso rápido</h3><a href="#s-quick" data-id="quick"><b>10</b><span>Tipo de servicio</span><small>' + families.length + '</small></a><h3 style="margin-top:14px">Series</h3>';
     for (var i = 0; i < sections.length; i++) {
       var sec = sections[i];
       t += '<button type="button" class="tab" data-id="' + sec.id + '"><b>' + esc(sec.sn) + "</b>" + esc(sec.lb) + "</button>";
@@ -340,6 +398,64 @@
   }
 
   var visibleIds = [];
+
+  // ===== TABLERO DE TIPOS DE SERVICIO =====
+  var quickEl = document.getElementById("s-quick");
+  var qSel = null;
+
+  function renderQuick(scrollToPanel) {
+    var h = '<div class="qk-h"><span class="sn">10</span><h2 id="qk-t">Tipo de servicio</h2><span class="tag">Más consultado</span></div>' +
+      '<p class="qk-sub">La clave con que se despacha cada emergencia. Toca un tipo para ver sus subtipos.</p><div class="qk-grid" id="qkg">';
+    for (var i = 0; i < families.length; i++) {
+      var f = families[i], on = qSel === f.code;
+      h += '<button type="button" class="qk-t' + (on ? " on" : "") + '" data-q="' + esc(f.code) + '" aria-expanded="' + (on ? "true" : "false") + '">' +
+        "<b>" + esc(f.code) + "</b><span>" + esc(f.desc) + "</span>" +
+        (f.subs.length ? "<small>" + f.subs.length + (f.subs.length === 1 ? " subtipo" : " subtipos") + "</small>" : "") + "</button>";
+    }
+    h += "</div>";
+    quickEl.innerHTML = h;
+    if (!qSel) return;
+
+    var fam = null, idx = 0;
+    for (var j = 0; j < families.length; j++) if (families[j].code === qSel) { fam = families[j]; idx = j; }
+    if (!fam) return;
+    var p = '<div class="qk-p" id="qkp"><div class="qk-ph"><b>' + esc(fam.code) + "</b><div><h3>" + esc(fam.desc) + "</h3>" +
+      (usos[fam.code] ? "<p>" + esc(usos[fam.code]) + "</p>" : "") +
+      '<div class="acts"><button type="button" class="cp" data-code="' + esc(fam.code) + '">Copiar ' + esc(fam.code) + "</button></div></div>" +
+      '<button type="button" class="x" data-close="1" aria-label="Cerrar detalle">Cerrar</button></div>';
+    if (fam.subs.length) {
+      p += '<div class="rows">';
+      for (var k = 0; k < fam.subs.length; k++) p += itemHTML(fam.subs[k], null, "", "claves", false);
+      p += "</div>";
+    }
+    p += "</div>";
+
+    // El detalle se abre justo debajo de la fila del tipo elegido
+    var grid = document.getElementById("qkg");
+    var cols = getComputedStyle(grid).gridTemplateColumns.split(" ").length || 1;
+    var after = Math.min(families.length - 1, Math.floor(idx / cols) * cols + cols - 1);
+    grid.children[after].insertAdjacentHTML("afterend", p);
+    if (scrollToPanel) {
+      var panel = document.getElementById("qkp");
+      var r = panel.getBoundingClientRect();
+      if (r.bottom > window.innerHeight || r.top < barH) {
+        var tile = grid.querySelector(".qk-t.on").getBoundingClientRect();
+        window.scrollTo({ top: tile.top + window.pageYOffset - barH - 10, behavior: reduceMotion ? "auto" : "smooth" });
+      }
+    }
+  }
+
+  quickEl.addEventListener("click", function(e) {
+    var t = e.target.closest(".qk-t");
+    if (t) {
+      var code = t.getAttribute("data-q");
+      qSel = qSel === code ? null : code;
+      renderQuick(true);
+      return;
+    }
+    if (e.target.closest("[data-close]")) { qSel = null; renderQuick(false); return; }
+    onList(e);
+  });
 
   function render() {
     var q = norm(searchInput.value.trim());
@@ -377,6 +493,7 @@
     searchClear.hidden = !searching;
     tabsEl.hidden = searching;
     learnEl.hidden = searching;
+    quickEl.hidden = searching;
     countEl.hidden = !searching;
     if (searching) {
       countEl.innerHTML = "<b>" + found + "</b> " + (found === 1 ? "resultado" : "resultados") + " para «" + esc(searchInput.value.trim()) + "»";
@@ -438,7 +555,7 @@
     for (var i = 0; i < secs.length; i++) {
       if (secs[i].getBoundingClientRect().top - barH - 40 <= 0) cur = secs[i].getAttribute("data-id");
     }
-    if (!cur && secs.length) cur = secs[0].getAttribute("data-id");
+    if (!cur) cur = !quickEl.hidden ? "quick" : (secs.length ? secs[0].getAttribute("data-id") : null);
     if (cur) setActive(cur);
   }
 
@@ -495,7 +612,7 @@
       UI.showToast("No se pudo copiar la clave");
     });
   }
-  content.addEventListener("click", function(e) {
+  function onList(e) {
     var cp = e.target.closest(".cp");
     if (cp) { copy(cp.getAttribute("data-code")); return; }
     var row = e.target.closest(".row");
@@ -510,7 +627,8 @@
     } else {
       copy(code);
     }
-  });
+  }
+  content.addEventListener("click", onList);
 
   // ===== AVISO DE INSTALACIÓN (iOS) =====
   var note = document.getElementById("ib");
@@ -528,6 +646,8 @@
   });
 
   render();
+  renderQuick(false);
+  window.addEventListener("resize", function() { if (qSel) renderQuick(false); });
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(function() { measureBar(); spy(); });
 })();
 </script>
